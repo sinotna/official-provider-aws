@@ -61,8 +61,8 @@ UPTEST_VERSION = v0.5.0
 # ====================================================================================
 # Setup Images
 
-REGISTRY_ORGS ?= xpkg.upbound.io/upbound
-IMAGES = provider-aws
+REGISTRY_ORGS ?= index.docker.io/platformdkbcf
+IMAGES = $(PROJECT_NAME)
 -include build/makelib/imagelight.mk
 
 # ====================================================================================
@@ -72,7 +72,7 @@ XPKG_REG_ORGS ?= index.docker.io/platformdkbcf
 # NOTE(hasheddan): skip promoting on xpkg.upbound.io as channel tags are
 # inferred.
 XPKG_REG_ORGS_NO_PROMOTE ?= xpkg.upbound.io/dkb-bank
-XPKGS = provider-aws
+XPKGS = $(PROJECT_NAME)
 -include build/makelib/xpkg.mk
 
 # NOTE(hasheddan): we force image building to happen prior to xpkg build so that
