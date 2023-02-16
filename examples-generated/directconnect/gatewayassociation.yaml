@@ -1,0 +1,34 @@
+apiVersion: directconnect.aws.upbound.io/v1beta1
+kind: GatewayAssociation
+metadata:
+  annotations:
+    meta.upbound.io/example-id: directconnect/v1beta1/gatewayassociation
+  labels:
+    testing.upbound.io/example-name: example
+  name: example
+spec:
+  forProvider:
+    associatedGatewayId: ${aws_vpn_gateway.example.id}
+    dxGatewayIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: example
+    region: us-west-1
+
+---
+
+apiVersion: directconnect.aws.upbound.io/v1beta1
+kind: Gateway
+metadata:
+  annotations:
+    meta.upbound.io/example-id: directconnect/v1beta1/gatewayassociation
+  labels:
+    testing.upbound.io/example-name: example
+  name: example
+spec:
+  forProvider:
+    amazonSideAsn: "64512"
+    name: example
+    region: us-west-1
+
+---
+
