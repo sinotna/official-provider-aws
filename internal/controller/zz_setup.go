@@ -9,6 +9,22 @@ import (
 
 	"github.com/upbound/upjet/pkg/controller"
 
+	bgppeer "github.com/dkb-bank/official-provider-aws/internal/controller/directconnect/bgppeer"
+	connection "github.com/dkb-bank/official-provider-aws/internal/controller/directconnect/connection"
+	connectionassociation "github.com/dkb-bank/official-provider-aws/internal/controller/directconnect/connectionassociation"
+	gateway "github.com/dkb-bank/official-provider-aws/internal/controller/directconnect/gateway"
+	gatewayassociation "github.com/dkb-bank/official-provider-aws/internal/controller/directconnect/gatewayassociation"
+	gatewayassociationproposal "github.com/dkb-bank/official-provider-aws/internal/controller/directconnect/gatewayassociationproposal"
+	hostedprivatevirtualinterface "github.com/dkb-bank/official-provider-aws/internal/controller/directconnect/hostedprivatevirtualinterface"
+	hostedprivatevirtualinterfaceaccepter "github.com/dkb-bank/official-provider-aws/internal/controller/directconnect/hostedprivatevirtualinterfaceaccepter"
+	hostedpublicvirtualinterface "github.com/dkb-bank/official-provider-aws/internal/controller/directconnect/hostedpublicvirtualinterface"
+	hostedpublicvirtualinterfaceaccepter "github.com/dkb-bank/official-provider-aws/internal/controller/directconnect/hostedpublicvirtualinterfaceaccepter"
+	hostedtransitvirtualinterface "github.com/dkb-bank/official-provider-aws/internal/controller/directconnect/hostedtransitvirtualinterface"
+	hostedtransitvirtualinterfaceaccepter "github.com/dkb-bank/official-provider-aws/internal/controller/directconnect/hostedtransitvirtualinterfaceaccepter"
+	lag "github.com/dkb-bank/official-provider-aws/internal/controller/directconnect/lag"
+	privatevirtualinterface "github.com/dkb-bank/official-provider-aws/internal/controller/directconnect/privatevirtualinterface"
+	publicvirtualinterface "github.com/dkb-bank/official-provider-aws/internal/controller/directconnect/publicvirtualinterface"
+	transitvirtualinterface "github.com/dkb-bank/official-provider-aws/internal/controller/directconnect/transitvirtualinterface"
 	providerconfig "github.com/dkb-bank/official-provider-aws/internal/controller/providerconfig"
 	activereceiptruleset "github.com/dkb-bank/official-provider-aws/internal/controller/ses/activereceiptruleset"
 	configurationset "github.com/dkb-bank/official-provider-aws/internal/controller/ses/configurationset"
@@ -29,6 +45,22 @@ import (
 // the supplied manager.
 func Setup(mgr ctrl.Manager, o controller.Options) error {
 	for _, setup := range []func(ctrl.Manager, controller.Options) error{
+		bgppeer.Setup,
+		connection.Setup,
+		connectionassociation.Setup,
+		gateway.Setup,
+		gatewayassociation.Setup,
+		gatewayassociationproposal.Setup,
+		hostedprivatevirtualinterface.Setup,
+		hostedprivatevirtualinterfaceaccepter.Setup,
+		hostedpublicvirtualinterface.Setup,
+		hostedpublicvirtualinterfaceaccepter.Setup,
+		hostedtransitvirtualinterface.Setup,
+		hostedtransitvirtualinterfaceaccepter.Setup,
+		lag.Setup,
+		privatevirtualinterface.Setup,
+		publicvirtualinterface.Setup,
+		transitvirtualinterface.Setup,
 		providerconfig.Setup,
 		activereceiptruleset.Setup,
 		configurationset.Setup,

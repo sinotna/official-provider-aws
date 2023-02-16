@@ -1550,41 +1550,41 @@ var ExternalNameConfigs = map[string]config.ExternalName{
 	// // imported using the CloudFormation Stack name
 	// "aws_serverlessapplicationrepository_cloudformation_stack": config.IdentifierFromProvider,
 
-	// // directconnect
-	// //
-	// // Direct Connect Gateways can be imported using the gateway id
-	// "aws_dx_gateway": config.IdentifierFromProvider,
-	// // Direct Connect connections can be imported using the connection id
-	// "aws_dx_connection": config.IdentifierFromProvider,
-	// // Direct Connect public virtual interfaces can be imported using the vif id
-	// "aws_dx_public_virtual_interface": config.IdentifierFromProvider,
-	// // No import
-	// "aws_dx_connection_association": config.IdentifierFromProvider,
-	// // Direct Connect LAGs can be imported using the lag id
-	// "aws_dx_lag": config.IdentifierFromProvider,
-	// // Direct Connect transit virtual interfaces can be imported using the vif id
-	// "aws_dx_transit_virtual_interface": config.IdentifierFromProvider,
-	// // Direct Connect private virtual interfaces can be imported using the vif id
-	// "aws_dx_private_virtual_interface": config.IdentifierFromProvider,
-	// //
-	// "aws_dx_gateway_association_proposal": config.IdentifierFromProvider,
-	// // Direct Connect gateway associations can be imported using dx_gateway_id together with associated_gateway_id
-	// // TODO: associated_gateway_id parameter is not `Required` in TF schema. But we use this field in id construction. So, please mark as required this field while configuration
-	// "aws_dx_gateway_association": config.IdentifierFromProvider,
-	// // No import
-	// "aws_dx_bgp_peer": config.IdentifierFromProvider,
-	// // Direct Connect hosted private virtual interfaces can be imported using the vif id
-	// "aws_dx_hosted_private_virtual_interface": config.IdentifierFromProvider,
-	// // Direct Connect hosted private virtual interfaces can be imported using the vif id
-	// "aws_dx_hosted_private_virtual_interface_accepter": config.IdentifierFromProvider,
-	// // Direct Connect hosted public virtual interfaces can be imported using the vif id
-	// "aws_dx_hosted_public_virtual_interface": config.IdentifierFromProvider,
-	// // Direct Connect hosted public virtual interfaces can be imported using the vif id
-	// "aws_dx_hosted_public_virtual_interface_accepter": config.IdentifierFromProvider,
-	// // Direct Connect hosted transit virtual interfaces can be imported using the vif id
-	// "aws_dx_hosted_transit_virtual_interface": config.IdentifierFromProvider,
-	// // Direct Connect hosted transit virtual interfaces can be imported using the vif id
-	// "aws_dx_hosted_transit_virtual_interface_accepter": config.IdentifierFromProvider,
+	// directconnect
+	//
+	// Direct Connect Gateways can be imported using the gateway id
+	"aws_dx_gateway": config.IdentifierFromProvider,
+	// Direct Connect connections can be imported using the connection id
+	"aws_dx_connection": config.IdentifierFromProvider,
+	// Direct Connect public virtual interfaces can be imported using the vif id
+	"aws_dx_public_virtual_interface": config.IdentifierFromProvider,
+	// No import
+	"aws_dx_connection_association": config.IdentifierFromProvider,
+	// Direct Connect LAGs can be imported using the lag id
+	"aws_dx_lag": config.IdentifierFromProvider,
+	// Direct Connect transit virtual interfaces can be imported using the vif id
+	"aws_dx_transit_virtual_interface": config.IdentifierFromProvider,
+	// Direct Connect private virtual interfaces can be imported using the vif id
+	"aws_dx_private_virtual_interface": config.IdentifierFromProvider,
+	//
+	"aws_dx_gateway_association_proposal": config.IdentifierFromProvider,
+	// Direct Connect gateway associations can be imported using dx_gateway_id together with associated_gateway_id
+	// TODO: associated_gateway_id parameter is not `Required` in TF schema. But we use this field in id construction. So, please mark as required this field while configuration
+	"aws_dx_gateway_association": config.IdentifierFromProvider,
+	// No import
+	"aws_dx_bgp_peer": config.IdentifierFromProvider,
+	// Direct Connect hosted private virtual interfaces can be imported using the vif id
+	"aws_dx_hosted_private_virtual_interface": config.IdentifierFromProvider,
+	// Direct Connect hosted private virtual interfaces can be imported using the vif id
+	"aws_dx_hosted_private_virtual_interface_accepter": config.IdentifierFromProvider,
+	// Direct Connect hosted public virtual interfaces can be imported using the vif id
+	"aws_dx_hosted_public_virtual_interface": config.IdentifierFromProvider,
+	// Direct Connect hosted public virtual interfaces can be imported using the vif id
+	"aws_dx_hosted_public_virtual_interface_accepter": config.IdentifierFromProvider,
+	// Direct Connect hosted transit virtual interfaces can be imported using the vif id
+	"aws_dx_hosted_transit_virtual_interface": config.IdentifierFromProvider,
+	// Direct Connect hosted transit virtual interfaces can be imported using the vif id
+	"aws_dx_hosted_transit_virtual_interface_accepter": config.IdentifierFromProvider,
 
 	// // guardduty
 	// //
