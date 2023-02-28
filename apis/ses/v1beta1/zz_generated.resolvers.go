@@ -8,6 +8,7 @@ package v1beta1
 import (
 	"context"
 	reference "github.com/crossplane/crossplane-runtime/pkg/reference"
+	v1beta1 "github.com/dkb-bank/official-provider-aws/apis/iam/v1beta1"
 	errors "github.com/pkg/errors"
 	resource "github.com/upbound/upjet/pkg/resource"
 	client "sigs.k8s.io/controller-runtime/pkg/client"
@@ -61,6 +62,25 @@ func (mg *EventDestination) ResolveReferences(ctx context.Context, c client.Read
 	}
 	mg.Spec.ForProvider.ConfigurationSetName = reference.ToPtrValue(rsp.ResolvedValue)
 	mg.Spec.ForProvider.ConfigurationSetNameRef = rsp.ResolvedReference
+
+	for i3 := 0; i3 < len(mg.Spec.ForProvider.KinesisDestination); i3++ {
+		rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
+			CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.KinesisDestination[i3].RoleArn),
+			Extract:      resource.ExtractParamPath("arn", true),
+			Reference:    mg.Spec.ForProvider.KinesisDestination[i3].RoleArnRef,
+			Selector:     mg.Spec.ForProvider.KinesisDestination[i3].RoleArnSelector,
+			To: reference.To{
+				List:    &v1beta1.RoleList{},
+				Managed: &v1beta1.Role{},
+			},
+		})
+		if err != nil {
+			return errors.Wrap(err, "mg.Spec.ForProvider.KinesisDestination[i3].RoleArn")
+		}
+		mg.Spec.ForProvider.KinesisDestination[i3].RoleArn = reference.ToPtrValue(rsp.ResolvedValue)
+		mg.Spec.ForProvider.KinesisDestination[i3].RoleArnRef = rsp.ResolvedReference
+
+	}
 
 	return nil
 }

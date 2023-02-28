@@ -10,7 +10,10 @@ package apis
 import (
 	"k8s.io/apimachinery/pkg/runtime"
 
-	v1beta1 "github.com/dkb-bank/official-provider-aws/apis/directconnect/v1beta1"
+	v1beta1 "github.com/dkb-bank/official-provider-aws/apis/cloudwatchlogs/v1beta1"
+	v1beta1directconnect "github.com/dkb-bank/official-provider-aws/apis/directconnect/v1beta1"
+	v1beta1iam "github.com/dkb-bank/official-provider-aws/apis/iam/v1beta1"
+	v1beta1kms "github.com/dkb-bank/official-provider-aws/apis/kms/v1beta1"
 	v1beta1ses "github.com/dkb-bank/official-provider-aws/apis/ses/v1beta1"
 	v1alpha1 "github.com/dkb-bank/official-provider-aws/apis/v1alpha1"
 	v1beta1apis "github.com/dkb-bank/official-provider-aws/apis/v1beta1"
@@ -20,6 +23,9 @@ func init() {
 	// Register the types with the Scheme so the components can map objects to GroupVersionKinds and back
 	AddToSchemes = append(AddToSchemes,
 		v1beta1.SchemeBuilder.AddToScheme,
+		v1beta1directconnect.SchemeBuilder.AddToScheme,
+		v1beta1iam.SchemeBuilder.AddToScheme,
+		v1beta1kms.SchemeBuilder.AddToScheme,
 		v1beta1ses.SchemeBuilder.AddToScheme,
 		v1alpha1.SchemeBuilder.AddToScheme,
 		v1beta1apis.SchemeBuilder.AddToScheme,
