@@ -6,6 +6,7 @@ package config
 
 import (
 	"context"
+	"fmt"
 	"strings"
 
 	"github.com/crossplane/crossplane-runtime/pkg/errors"
@@ -447,70 +448,70 @@ var ExternalNameConfigs = map[string]config.ExternalName{
 	// // Imported using "name".
 	// "aws_glue_security_configuration": config.NameAsIdentifier,
 
-	// // iam
-	// //
-	// // AKIA1234567890
-	// "aws_iam_access_key":       config.IdentifierFromProvider,
-	// "aws_iam_instance_profile": config.NameAsIdentifier,
-	// // arn:aws:iam::123456789012:policy/UsersManageOwnCredentials
-	// "aws_iam_policy": config.TemplatedStringAsIdentifier("name", "arn:aws:iam::{{ .setup.client_metadata.account_id }}:policy/{{ .external_name }}"),
-	// "aws_iam_user":   config.NameAsIdentifier,
-	// "aws_iam_group":  config.NameAsIdentifier,
-	// "aws_iam_role":   config.NameAsIdentifier,
-	// // Imported using the role name and policy arn separated by /
-	// // test-role/arn:aws:iam::xxxxxxxxxxxx:policy/test-policy
-	// "aws_iam_role_policy_attachment": config.IdentifierFromProvider,
-	// // Imported using the user name and policy arn separated by /
-	// // test-user/arn:aws:iam::xxxxxxxxxxxx:policy/test-policy
-	// "aws_iam_user_policy_attachment": config.IdentifierFromProvider,
-	// // Imported using the group name and policy arn separated by /
-	// // test-group/arn:aws:iam::xxxxxxxxxxxx:policy/test-policy
-	// "aws_iam_group_policy_attachment": config.IdentifierFromProvider,
-	// // Imported using the user name and group names separated by /
-	// // user1/group1/group2
-	// "aws_iam_user_group_membership": iamUserGroupMembership(),
-	// // arn:aws:iam::123456789012:oidc-provider/accounts.google.com
-	// "aws_iam_openid_connect_provider": config.IdentifierFromProvider,
-	// // The current Account Alias can be imported using the account_alias
-	// "aws_iam_account_alias": config.ParameterAsIdentifier("account_alias"),
-	// // IAM Account Password Policy can be imported using the word iam-account-password-policy
-	// "aws_iam_account_password_policy": config.IdentifierFromProvider,
-	// // No import
-	// "aws_iam_group_membership": config.IdentifierFromProvider,
-	// // IAM SAML Providers can be imported using the arn
-	// "aws_iam_saml_provider": config.TemplatedStringAsIdentifier("name", "arn:aws:iam::{{ .setup.client_metadata.account_id }}:saml-provider/{{ .external_name }}"),
-	// // IAM Server Certificates can be imported using the name
-	// "aws_iam_server_certificate": config.NameAsIdentifier,
-	// // IAM service-linked roles can be imported using role ARN that contains the
-	// // service name.
-	// "aws_iam_service_linked_role": config.IdentifierFromProvider,
-	// // IAM Service Specific Credentials can be imported using the service_name:user_name:service_specific_credential_id
-	// "aws_iam_service_specific_credential": config.IdentifierFromProvider,
-	// // IAM Signing Certificates can be imported using the id
-	// "aws_iam_signing_certificate": config.IdentifierFromProvider,
-	// // IAM User Login Profiles can be imported without password information support via the IAM User name
-	// "aws_iam_user_login_profile": config.IdentifierFromProvider,
-	// // SSH public keys can be imported using the username, ssh_public_key_id, and encoding
-	// "aws_iam_user_ssh_key": config.IdentifierFromProvider,
-	// // IAM Virtual MFA Devices can be imported using the arn
-	// "aws_iam_virtual_mfa_device": config.IdentifierFromProvider,
+	// iam
+	//
+	// AKIA1234567890
+	"aws_iam_access_key":       config.IdentifierFromProvider,
+	"aws_iam_instance_profile": config.NameAsIdentifier,
+	// arn:aws:iam::123456789012:policy/UsersManageOwnCredentials
+	"aws_iam_policy": config.TemplatedStringAsIdentifier("name", "arn:aws:iam::{{ .setup.client_metadata.account_id }}:policy/{{ .external_name }}"),
+	"aws_iam_user":   config.NameAsIdentifier,
+	"aws_iam_group":  config.NameAsIdentifier,
+	"aws_iam_role":   config.NameAsIdentifier,
+	// Imported using the role name and policy arn separated by /
+	// test-role/arn:aws:iam::xxxxxxxxxxxx:policy/test-policy
+	"aws_iam_role_policy_attachment": config.IdentifierFromProvider,
+	// Imported using the user name and policy arn separated by /
+	// test-user/arn:aws:iam::xxxxxxxxxxxx:policy/test-policy
+	"aws_iam_user_policy_attachment": config.IdentifierFromProvider,
+	// Imported using the group name and policy arn separated by /
+	// test-group/arn:aws:iam::xxxxxxxxxxxx:policy/test-policy
+	"aws_iam_group_policy_attachment": config.IdentifierFromProvider,
+	// Imported using the user name and group names separated by /
+	// user1/group1/group2
+	"aws_iam_user_group_membership": iamUserGroupMembership(),
+	// arn:aws:iam::123456789012:oidc-provider/accounts.google.com
+	"aws_iam_openid_connect_provider": config.IdentifierFromProvider,
+	// The current Account Alias can be imported using the account_alias
+	"aws_iam_account_alias": config.ParameterAsIdentifier("account_alias"),
+	// IAM Account Password Policy can be imported using the word iam-account-password-policy
+	"aws_iam_account_password_policy": config.IdentifierFromProvider,
+	// No import
+	"aws_iam_group_membership": config.IdentifierFromProvider,
+	// IAM SAML Providers can be imported using the arn
+	"aws_iam_saml_provider": config.TemplatedStringAsIdentifier("name", "arn:aws:iam::{{ .setup.client_metadata.account_id }}:saml-provider/{{ .external_name }}"),
+	// IAM Server Certificates can be imported using the name
+	"aws_iam_server_certificate": config.NameAsIdentifier,
+	// IAM service-linked roles can be imported using role ARN that contains the
+	// service name.
+	"aws_iam_service_linked_role": config.IdentifierFromProvider,
+	// IAM Service Specific Credentials can be imported using the service_name:user_name:service_specific_credential_id
+	"aws_iam_service_specific_credential": config.IdentifierFromProvider,
+	// IAM Signing Certificates can be imported using the id
+	"aws_iam_signing_certificate": config.IdentifierFromProvider,
+	// IAM User Login Profiles can be imported without password information support via the IAM User name
+	"aws_iam_user_login_profile": config.IdentifierFromProvider,
+	// SSH public keys can be imported using the username, ssh_public_key_id, and encoding
+	"aws_iam_user_ssh_key": config.IdentifierFromProvider,
+	// IAM Virtual MFA Devices can be imported using the arn
+	"aws_iam_virtual_mfa_device": config.IdentifierFromProvider,
 
-	// // kms
-	// //
-	// // 1234abcd-12ab-34cd-56ef-1234567890ab
-	// "aws_kms_key": config.IdentifierFromProvider,
-	// // KMS aliases are imported using "alias/" + name
-	// "aws_kms_alias": kmsAlias(),
-	// // No import
-	// "aws_kms_ciphertext": config.IdentifierFromProvider,
-	// // KMS External Keys can be imported using the id
-	// "aws_kms_external_key": config.IdentifierFromProvider,
-	// // KMS Grants can be imported using the Key ID and Grant ID separated by a colon (:)
-	// "aws_kms_grant": config.IdentifierFromProvider,
-	// // KMS multi-Region replica keys can be imported using the id
-	// "aws_kms_replica_external_key": config.IdentifierFromProvider,
-	// // KMS multi-Region replica keys can be imported using the id
-	// "aws_kms_replica_key": config.IdentifierFromProvider,
+	// kms
+	//
+	// 1234abcd-12ab-34cd-56ef-1234567890ab
+	"aws_kms_key": config.IdentifierFromProvider,
+	// KMS aliases are imported using "alias/" + name
+	"aws_kms_alias": kmsAlias(),
+	// No import
+	"aws_kms_ciphertext": config.IdentifierFromProvider,
+	// KMS External Keys can be imported using the id
+	"aws_kms_external_key": config.IdentifierFromProvider,
+	// KMS Grants can be imported using the Key ID and Grant ID separated by a colon (:)
+	"aws_kms_grant": config.IdentifierFromProvider,
+	// KMS multi-Region replica keys can be imported using the id
+	"aws_kms_replica_external_key": config.IdentifierFromProvider,
+	// KMS multi-Region replica keys can be imported using the id
+	"aws_kms_replica_key": config.IdentifierFromProvider,
 
 	// // mq
 	// //
@@ -964,24 +965,24 @@ var ExternalNameConfigs = map[string]config.ExternalName{
 	// // Athena Named Query can be imported using the query ID
 	// "aws_athena_named_query": config.IdentifierFromProvider,
 
-	// // cloudwatchlogs
-	// //
-	// // Cloudwatch Log Groups can be imported using the name
-	// "aws_cloudwatch_log_group": config.NameAsIdentifier,
-	// // CloudWatch Log Metric Filter can be imported using the log_group_name:name
-	// "aws_cloudwatch_log_metric_filter": config.TemplatedStringAsIdentifier("name", "{{ .parameters.log_group_name }}:{{ .external_name }}"),
-	// // CloudWatch query definitions can be imported using the query definition ARN.
-	// "aws_cloudwatch_query_definition": config.IdentifierFromProvider,
-	// // Cloudwatch Log Stream can be imported using the stream's log_group_name and name
-	// "aws_cloudwatch_log_stream": config.IdentifierFromProvider,
-	// // CloudWatch log resource policies can be imported using the policy name
-	// "aws_cloudwatch_log_resource_policy": config.ParameterAsIdentifier("policy_name"),
-	// // CloudWatch Logs destinations can be imported using the name
-	// "aws_cloudwatch_log_destination": config.NameAsIdentifier,
-	// // CloudWatch Logs destination policies can be imported using the destination_name
-	// "aws_cloudwatch_log_destination_policy": config.ParameterAsIdentifier("destination_name"),
-	// // CloudWatch Logs subscription filter can be imported using the log group name and subscription filter name separated by |
-	// "aws_cloudwatch_log_subscription_filter": config.IdentifierFromProvider,
+	// cloudwatchlogs
+	//
+	// Cloudwatch Log Groups can be imported using the name
+	"aws_cloudwatch_log_group": config.NameAsIdentifier,
+	// CloudWatch Log Metric Filter can be imported using the log_group_name:name
+	"aws_cloudwatch_log_metric_filter": config.TemplatedStringAsIdentifier("name", "{{ .parameters.log_group_name }}:{{ .external_name }}"),
+	// CloudWatch query definitions can be imported using the query definition ARN.
+	"aws_cloudwatch_query_definition": config.IdentifierFromProvider,
+	// Cloudwatch Log Stream can be imported using the stream's log_group_name and name
+	"aws_cloudwatch_log_stream": config.IdentifierFromProvider,
+	// CloudWatch log resource policies can be imported using the policy name
+	"aws_cloudwatch_log_resource_policy": config.ParameterAsIdentifier("policy_name"),
+	// CloudWatch Logs destinations can be imported using the name
+	"aws_cloudwatch_log_destination": config.NameAsIdentifier,
+	// CloudWatch Logs destination policies can be imported using the destination_name
+	"aws_cloudwatch_log_destination_policy": config.ParameterAsIdentifier("destination_name"),
+	// CloudWatch Logs subscription filter can be imported using the log group name and subscription filter name separated by |
+	"aws_cloudwatch_log_subscription_filter": config.IdentifierFromProvider,
 
 	// // elb
 	// //
@@ -2280,53 +2281,53 @@ var ExternalNameConfigs = map[string]config.ExternalName{
 // 	return e
 // }
 
-// func iamUserGroupMembership() config.ExternalName {
-// 	e := config.IdentifierFromProvider
-// 	e.GetIDFn = func(_ context.Context, _ string, parameters map[string]interface{}, _ map[string]interface{}) (string, error) {
-// 		u, ok := parameters["user"]
-// 		if !ok {
-// 			return "", errors.New("user cannot be empty")
-// 		}
-// 		gs, ok := parameters["groups"]
-// 		if !ok {
-// 			return "", errors.New("groups cannot be empty")
-// 		}
-// 		var groups []string
-// 		for _, g := range gs.([]interface{}) {
-// 			groups = append(groups, g.(string))
-// 		}
-// 		return strings.Join(append([]string{u.(string)}, groups...), "/"), nil
-// 	}
-// 	return e
-// }
+func iamUserGroupMembership() config.ExternalName {
+	e := config.IdentifierFromProvider
+	e.GetIDFn = func(_ context.Context, _ string, parameters map[string]interface{}, _ map[string]interface{}) (string, error) {
+		u, ok := parameters["user"]
+		if !ok {
+			return "", errors.New("user cannot be empty")
+		}
+		gs, ok := parameters["groups"]
+		if !ok {
+			return "", errors.New("groups cannot be empty")
+		}
+		var groups []string
+		for _, g := range gs.([]interface{}) {
+			groups = append(groups, g.(string))
+		}
+		return strings.Join(append([]string{u.(string)}, groups...), "/"), nil
+	}
+	return e
+}
 
-// func kmsAlias() config.ExternalName {
-// 	e := config.NameAsIdentifier
-// 	e.SetIdentifierArgumentFn = func(base map[string]interface{}, externalName string) {
-// 		if _, ok := base["name"]; !ok {
-// 			if !strings.HasPrefix(externalName, "alias/") {
-// 				base["name"] = fmt.Sprintf("alias/%s", externalName)
-// 			} else {
-// 				base["name"] = externalName
-// 			}
-// 		}
-// 	}
-// 	e.GetExternalNameFn = func(tfstate map[string]any) (string, error) {
-// 		id, ok := tfstate["id"]
-// 		if !ok {
-// 			return "", errors.New("id attribute missing from state file")
-// 		}
+func kmsAlias() config.ExternalName {
+	e := config.NameAsIdentifier
+	e.SetIdentifierArgumentFn = func(base map[string]interface{}, externalName string) {
+		if _, ok := base["name"]; !ok {
+			if !strings.HasPrefix(externalName, "alias/") {
+				base["name"] = fmt.Sprintf("alias/%s", externalName)
+			} else {
+				base["name"] = externalName
+			}
+		}
+	}
+	e.GetExternalNameFn = func(tfstate map[string]any) (string, error) {
+		id, ok := tfstate["id"]
+		if !ok {
+			return "", errors.New("id attribute missing from state file")
+		}
 
-// 		idStr, ok := id.(string)
-// 		if !ok {
-// 			return "", errors.New("value of id needs to be string")
-// 		}
+		idStr, ok := id.(string)
+		if !ok {
+			return "", errors.New("value of id needs to be string")
+		}
 
-// 		return strings.TrimPrefix(idStr, "alias/"), nil
-// 	}
+		return strings.TrimPrefix(idStr, "alias/"), nil
+	}
 
-// 	return e
-// }
+	return e
+}
 
 // func route() config.ExternalName {
 // 	e := config.IdentifierFromProvider
