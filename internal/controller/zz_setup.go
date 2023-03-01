@@ -9,6 +9,14 @@ import (
 
 	"github.com/upbound/upjet/pkg/controller"
 
+	definition "github.com/dkb-bank/official-provider-aws/internal/controller/cloudwatchlogs/definition"
+	destination "github.com/dkb-bank/official-provider-aws/internal/controller/cloudwatchlogs/destination"
+	destinationpolicy "github.com/dkb-bank/official-provider-aws/internal/controller/cloudwatchlogs/destinationpolicy"
+	group "github.com/dkb-bank/official-provider-aws/internal/controller/cloudwatchlogs/group"
+	metricfilter "github.com/dkb-bank/official-provider-aws/internal/controller/cloudwatchlogs/metricfilter"
+	resourcepolicy "github.com/dkb-bank/official-provider-aws/internal/controller/cloudwatchlogs/resourcepolicy"
+	stream "github.com/dkb-bank/official-provider-aws/internal/controller/cloudwatchlogs/stream"
+	subscriptionfilter "github.com/dkb-bank/official-provider-aws/internal/controller/cloudwatchlogs/subscriptionfilter"
 	bgppeer "github.com/dkb-bank/official-provider-aws/internal/controller/directconnect/bgppeer"
 	connection "github.com/dkb-bank/official-provider-aws/internal/controller/directconnect/connection"
 	connectionassociation "github.com/dkb-bank/official-provider-aws/internal/controller/directconnect/connectionassociation"
@@ -25,6 +33,35 @@ import (
 	privatevirtualinterface "github.com/dkb-bank/official-provider-aws/internal/controller/directconnect/privatevirtualinterface"
 	publicvirtualinterface "github.com/dkb-bank/official-provider-aws/internal/controller/directconnect/publicvirtualinterface"
 	transitvirtualinterface "github.com/dkb-bank/official-provider-aws/internal/controller/directconnect/transitvirtualinterface"
+	accesskey "github.com/dkb-bank/official-provider-aws/internal/controller/iam/accesskey"
+	accountalias "github.com/dkb-bank/official-provider-aws/internal/controller/iam/accountalias"
+	accountpasswordpolicy "github.com/dkb-bank/official-provider-aws/internal/controller/iam/accountpasswordpolicy"
+	groupiam "github.com/dkb-bank/official-provider-aws/internal/controller/iam/group"
+	groupmembership "github.com/dkb-bank/official-provider-aws/internal/controller/iam/groupmembership"
+	grouppolicyattachment "github.com/dkb-bank/official-provider-aws/internal/controller/iam/grouppolicyattachment"
+	instanceprofile "github.com/dkb-bank/official-provider-aws/internal/controller/iam/instanceprofile"
+	openidconnectprovider "github.com/dkb-bank/official-provider-aws/internal/controller/iam/openidconnectprovider"
+	policy "github.com/dkb-bank/official-provider-aws/internal/controller/iam/policy"
+	role "github.com/dkb-bank/official-provider-aws/internal/controller/iam/role"
+	rolepolicyattachment "github.com/dkb-bank/official-provider-aws/internal/controller/iam/rolepolicyattachment"
+	samlprovider "github.com/dkb-bank/official-provider-aws/internal/controller/iam/samlprovider"
+	servercertificate "github.com/dkb-bank/official-provider-aws/internal/controller/iam/servercertificate"
+	servicelinkedrole "github.com/dkb-bank/official-provider-aws/internal/controller/iam/servicelinkedrole"
+	servicespecificcredential "github.com/dkb-bank/official-provider-aws/internal/controller/iam/servicespecificcredential"
+	signingcertificate "github.com/dkb-bank/official-provider-aws/internal/controller/iam/signingcertificate"
+	user "github.com/dkb-bank/official-provider-aws/internal/controller/iam/user"
+	usergroupmembership "github.com/dkb-bank/official-provider-aws/internal/controller/iam/usergroupmembership"
+	userloginprofile "github.com/dkb-bank/official-provider-aws/internal/controller/iam/userloginprofile"
+	userpolicyattachment "github.com/dkb-bank/official-provider-aws/internal/controller/iam/userpolicyattachment"
+	usersshkey "github.com/dkb-bank/official-provider-aws/internal/controller/iam/usersshkey"
+	virtualmfadevice "github.com/dkb-bank/official-provider-aws/internal/controller/iam/virtualmfadevice"
+	alias "github.com/dkb-bank/official-provider-aws/internal/controller/kms/alias"
+	ciphertext "github.com/dkb-bank/official-provider-aws/internal/controller/kms/ciphertext"
+	externalkey "github.com/dkb-bank/official-provider-aws/internal/controller/kms/externalkey"
+	grant "github.com/dkb-bank/official-provider-aws/internal/controller/kms/grant"
+	key "github.com/dkb-bank/official-provider-aws/internal/controller/kms/key"
+	replicaexternalkey "github.com/dkb-bank/official-provider-aws/internal/controller/kms/replicaexternalkey"
+	replicakey "github.com/dkb-bank/official-provider-aws/internal/controller/kms/replicakey"
 	providerconfig "github.com/dkb-bank/official-provider-aws/internal/controller/providerconfig"
 	activereceiptruleset "github.com/dkb-bank/official-provider-aws/internal/controller/ses/activereceiptruleset"
 	configurationset "github.com/dkb-bank/official-provider-aws/internal/controller/ses/configurationset"
@@ -45,6 +82,14 @@ import (
 // the supplied manager.
 func Setup(mgr ctrl.Manager, o controller.Options) error {
 	for _, setup := range []func(ctrl.Manager, controller.Options) error{
+		definition.Setup,
+		destination.Setup,
+		destinationpolicy.Setup,
+		group.Setup,
+		metricfilter.Setup,
+		resourcepolicy.Setup,
+		stream.Setup,
+		subscriptionfilter.Setup,
 		bgppeer.Setup,
 		connection.Setup,
 		connectionassociation.Setup,
@@ -61,6 +106,35 @@ func Setup(mgr ctrl.Manager, o controller.Options) error {
 		privatevirtualinterface.Setup,
 		publicvirtualinterface.Setup,
 		transitvirtualinterface.Setup,
+		accesskey.Setup,
+		accountalias.Setup,
+		accountpasswordpolicy.Setup,
+		groupiam.Setup,
+		groupmembership.Setup,
+		grouppolicyattachment.Setup,
+		instanceprofile.Setup,
+		openidconnectprovider.Setup,
+		policy.Setup,
+		role.Setup,
+		rolepolicyattachment.Setup,
+		samlprovider.Setup,
+		servercertificate.Setup,
+		servicelinkedrole.Setup,
+		servicespecificcredential.Setup,
+		signingcertificate.Setup,
+		user.Setup,
+		usergroupmembership.Setup,
+		userloginprofile.Setup,
+		userpolicyattachment.Setup,
+		usersshkey.Setup,
+		virtualmfadevice.Setup,
+		alias.Setup,
+		ciphertext.Setup,
+		externalkey.Setup,
+		grant.Setup,
+		key.Setup,
+		replicaexternalkey.Setup,
+		replicakey.Setup,
 		providerconfig.Setup,
 		activereceiptruleset.Setup,
 		configurationset.Setup,
