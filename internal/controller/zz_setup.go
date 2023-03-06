@@ -33,6 +33,7 @@ import (
 	privatevirtualinterface "github.com/dkb-bank/official-provider-aws/internal/controller/directconnect/privatevirtualinterface"
 	publicvirtualinterface "github.com/dkb-bank/official-provider-aws/internal/controller/directconnect/publicvirtualinterface"
 	transitvirtualinterface "github.com/dkb-bank/official-provider-aws/internal/controller/directconnect/transitvirtualinterface"
+	keypair "github.com/dkb-bank/official-provider-aws/internal/controller/ec2/keypair"
 	accesskey "github.com/dkb-bank/official-provider-aws/internal/controller/iam/accesskey"
 	accountalias "github.com/dkb-bank/official-provider-aws/internal/controller/iam/accountalias"
 	accountpasswordpolicy "github.com/dkb-bank/official-provider-aws/internal/controller/iam/accountpasswordpolicy"
@@ -106,6 +107,7 @@ func Setup(mgr ctrl.Manager, o controller.Options) error {
 		privatevirtualinterface.Setup,
 		publicvirtualinterface.Setup,
 		transitvirtualinterface.Setup,
+		keypair.Setup,
 		accesskey.Setup,
 		accountalias.Setup,
 		accountpasswordpolicy.Setup,
