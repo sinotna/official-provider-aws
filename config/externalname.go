@@ -225,8 +225,8 @@ var ExternalNameConfigs = map[string]config.ExternalName{
 	// "aws_eip_association": config.IdentifierFromProvider,
 	// // Flow Logs can be imported using the id
 	// "aws_flow_log": config.IdentifierFromProvider,
-	// // Key Pairs can be imported using the key_name
-	// "aws_key_pair": config.ParameterAsIdentifier("key_name"),
+	// Key Pairs can be imported using the key_name
+	"aws_key_pair": config.ParameterAsIdentifier("key_name"),
 	// // Network ACLs can be imported using the id
 	// "aws_network_acl": config.IdentifierFromProvider,
 	// // No import
