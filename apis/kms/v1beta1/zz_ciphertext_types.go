@@ -28,16 +28,15 @@ type CiphertextParameters struct {
 	Context map[string]*string `json:"context,omitempty" tf:"context,omitempty"`
 
 	// Globally unique key ID for the customer master key.
-	// +crossplane:generate:reference:type=github.com/dkb-bank/official-provider-aws/apis/kms/v1beta1.Key
-	// +crossplane:generate:reference:extractor=github.com/upbound/upjet/pkg/resource.ExtractParamPath("key_id",true)
+	// +crossplane:generate:reference:type=Key
 	// +kubebuilder:validation:Optional
 	KeyID *string `json:"keyId,omitempty" tf:"key_id,omitempty"`
 
-	// Reference to a Key in kms to populate keyId.
+	// Reference to a Key to populate keyId.
 	// +kubebuilder:validation:Optional
 	KeyIDRef *v1.Reference `json:"keyIdRef,omitempty" tf:"-"`
 
-	// Selector for a Key in kms to populate keyId.
+	// Selector for a Key to populate keyId.
 	// +kubebuilder:validation:Optional
 	KeyIDSelector *v1.Selector `json:"keyIdSelector,omitempty" tf:"-"`
 

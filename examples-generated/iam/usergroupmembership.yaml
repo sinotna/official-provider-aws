@@ -8,9 +8,9 @@ metadata:
   name: example1
 spec:
   forProvider:
-    groups:
-    - ${aws_iam_group.group1.name}
-    - ${aws_iam_group.group2.name}
+    groupRefs:
+    - name: group1
+    - name: group2
     userSelector:
       matchLabels:
         testing.upbound.io/example-name: user1

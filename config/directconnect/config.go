@@ -20,6 +20,11 @@ import (
 
 // Configure adds configurations for directconnect group.
 func Configure(p *config.Provider) { // nolint:gocyclo
+	p.AddResourceConfigurator("aws_dx_connection", func(r *config.Resource) {
+		r.LateInitializer = config.LateInitializer{
+			IgnoredFields: []string{"encryption_mode"},
+		}
+	})
 	p.AddResourceConfigurator("aws_dx_public_virtual_interface", func(r *config.Resource) {
 		r.References["connection_id"] = config.Reference{
 			Type: "Connection",

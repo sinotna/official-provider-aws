@@ -1221,6 +1221,16 @@ func (in *ReplicaExternalKeyParameters) DeepCopyInto(out *ReplicaExternalKeyPara
 		*out = new(string)
 		**out = **in
 	}
+	if in.PrimaryKeyArnRef != nil {
+		in, out := &in.PrimaryKeyArnRef, &out.PrimaryKeyArnRef
+		*out = new(v1.Reference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.PrimaryKeyArnSelector != nil {
+		in, out := &in.PrimaryKeyArnSelector, &out.PrimaryKeyArnSelector
+		*out = new(v1.Selector)
+		(*in).DeepCopyInto(*out)
+	}
 	if in.Region != nil {
 		in, out := &in.Region, &out.Region
 		*out = new(string)

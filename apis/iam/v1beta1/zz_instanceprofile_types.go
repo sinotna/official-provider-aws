@@ -38,15 +38,15 @@ type InstanceProfileParameters struct {
 	Path *string `json:"path,omitempty" tf:"path,omitempty"`
 
 	// Name of the role to add to the profile.
-	// +crossplane:generate:reference:type=github.com/dkb-bank/official-provider-aws/apis/iam/v1beta1.Role
+	// +crossplane:generate:reference:type=Role
 	// +kubebuilder:validation:Optional
 	Role *string `json:"role,omitempty" tf:"role,omitempty"`
 
-	// Reference to a Role in iam to populate role.
+	// Reference to a Role to populate role.
 	// +kubebuilder:validation:Optional
 	RoleRef *v1.Reference `json:"roleRef,omitempty" tf:"-"`
 
-	// Selector for a Role in iam to populate role.
+	// Selector for a Role to populate role.
 	// +kubebuilder:validation:Optional
 	RoleSelector *v1.Selector `json:"roleSelector,omitempty" tf:"-"`
 

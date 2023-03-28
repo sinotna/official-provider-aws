@@ -68,7 +68,7 @@ spec:
                     description: The ARN of the policy you want to apply
                     type: string
                   policyArnRef:
-                    description: Reference to a Policy in iam to populate policyArn.
+                    description: Reference to a Policy to populate policyArn.
                     properties:
                       name:
                         description: Name of the referenced object.
@@ -102,7 +102,7 @@ spec:
                     - name
                     type: object
                   policyArnSelector:
-                    description: Selector for a Policy in iam to populate policyArn.
+                    description: Selector for a Policy to populate policyArn.
                     properties:
                       matchControllerRef:
                         description: MatchControllerRef ensures an object with the
@@ -145,7 +145,7 @@ spec:
                       be applied
                     type: string
                   roleRef:
-                    description: Reference to a Role in iam to populate role.
+                    description: Reference to a Role to populate role.
                     properties:
                       name:
                         description: Name of the referenced object.
@@ -179,7 +179,7 @@ spec:
                     - name
                     type: object
                   roleSelector:
-                    description: Selector for a Role in iam to populate role.
+                    description: Selector for a Role to populate role.
                     properties:
                       matchControllerRef:
                         description: MatchControllerRef ensures an object with the

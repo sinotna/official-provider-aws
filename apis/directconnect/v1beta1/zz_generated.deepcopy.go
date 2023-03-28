@@ -743,6 +743,16 @@ func (in *GatewayAssociationParameters) DeepCopyInto(out *GatewayAssociationPara
 		*out = new(string)
 		**out = **in
 	}
+	if in.AssociatedGatewayIDRef != nil {
+		in, out := &in.AssociatedGatewayIDRef, &out.AssociatedGatewayIDRef
+		*out = new(v1.Reference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.AssociatedGatewayIDSelector != nil {
+		in, out := &in.AssociatedGatewayIDSelector, &out.AssociatedGatewayIDSelector
+		*out = new(v1.Selector)
+		(*in).DeepCopyInto(*out)
+	}
 	if in.AssociatedGatewayOwnerAccountID != nil {
 		in, out := &in.AssociatedGatewayOwnerAccountID, &out.AssociatedGatewayOwnerAccountID
 		*out = new(string)
@@ -1454,6 +1464,16 @@ func (in *HostedPrivateVirtualInterfaceParameters) DeepCopyInto(out *HostedPriva
 		*out = new(string)
 		**out = **in
 	}
+	if in.ConnectionIDRef != nil {
+		in, out := &in.ConnectionIDRef, &out.ConnectionIDRef
+		*out = new(v1.Reference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.ConnectionIDSelector != nil {
+		in, out := &in.ConnectionIDSelector, &out.ConnectionIDSelector
+		*out = new(v1.Selector)
+		(*in).DeepCopyInto(*out)
+	}
 	if in.CustomerAddress != nil {
 		in, out := &in.CustomerAddress, &out.CustomerAddress
 		*out = new(string)
@@ -1834,6 +1854,16 @@ func (in *HostedPublicVirtualInterfaceParameters) DeepCopyInto(out *HostedPublic
 		in, out := &in.ConnectionID, &out.ConnectionID
 		*out = new(string)
 		**out = **in
+	}
+	if in.ConnectionIDRef != nil {
+		in, out := &in.ConnectionIDRef, &out.ConnectionIDRef
+		*out = new(v1.Reference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.ConnectionIDSelector != nil {
+		in, out := &in.ConnectionIDSelector, &out.ConnectionIDSelector
+		*out = new(v1.Selector)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.CustomerAddress != nil {
 		in, out := &in.CustomerAddress, &out.CustomerAddress
@@ -2683,6 +2713,16 @@ func (in *PrivateVirtualInterfaceParameters) DeepCopyInto(out *PrivateVirtualInt
 		*out = new(string)
 		**out = **in
 	}
+	if in.ConnectionIDRef != nil {
+		in, out := &in.ConnectionIDRef, &out.ConnectionIDRef
+		*out = new(v1.Reference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.ConnectionIDSelector != nil {
+		in, out := &in.ConnectionIDSelector, &out.ConnectionIDSelector
+		*out = new(v1.Selector)
+		(*in).DeepCopyInto(*out)
+	}
 	if in.CustomerAddress != nil {
 		in, out := &in.CustomerAddress, &out.CustomerAddress
 		*out = new(string)
@@ -2920,6 +2960,16 @@ func (in *PublicVirtualInterfaceParameters) DeepCopyInto(out *PublicVirtualInter
 		in, out := &in.ConnectionID, &out.ConnectionID
 		*out = new(string)
 		**out = **in
+	}
+	if in.ConnectionIDRef != nil {
+		in, out := &in.ConnectionIDRef, &out.ConnectionIDRef
+		*out = new(v1.Reference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.ConnectionIDSelector != nil {
+		in, out := &in.ConnectionIDSelector, &out.ConnectionIDSelector
+		*out = new(v1.Selector)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.CustomerAddress != nil {
 		in, out := &in.CustomerAddress, &out.CustomerAddress

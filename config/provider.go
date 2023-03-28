@@ -8,6 +8,13 @@ import (
 	// Note(ezgidemirel): we are importing this to embed provider schema document
 	_ "embed"
 
+	"github.com/dkb-bank/official-provider-aws/config/cloudwatchlogs"
+	"github.com/dkb-bank/official-provider-aws/config/directconnect"
+	"github.com/dkb-bank/official-provider-aws/config/elbv2"
+	"github.com/dkb-bank/official-provider-aws/config/iam"
+	"github.com/dkb-bank/official-provider-aws/config/kms"
+	"github.com/upbound/provider-aws/config/ec2"
+	"github.com/upbound/provider-aws/config/grafana"
 	"github.com/upbound/upjet/pkg/config"
 	"github.com/upbound/upjet/pkg/registry/reference"
 )
@@ -92,7 +99,7 @@ func GetProvider() *config.Provider {
 		// cloudfront.Configure,
 		// cloudsearch.Configure,
 		// cloudwatch.Configure,
-		// cloudwatchlogs.Configure,
+		cloudwatchlogs.Configure,
 		// cognitoidentity.Configure,
 		// cognitoidp.Configure,
 		// connect.Configure,
@@ -102,7 +109,7 @@ func GetProvider() *config.Provider {
 		// docdb.Configure,
 		// dynamodb.Configure,
 		// ebs.Configure,
-		// ec2.Configure,
+		ec2.Configure,
 		// ecr.Configure,
 		// ecrpublic.Configure,
 		// ecs.Configure,
@@ -111,18 +118,18 @@ func GetProvider() *config.Provider {
 		// elasticache.Configure,
 		// elasticloadbalancing.Configure,
 		// elb.Configure,
-		// elbv2.Configure,
+		elbv2.Configure,
 		// firehose.Configure,
 		// gamelift.Configure,
 		// globalaccelerator.Configure,
 		// glue.Configure,
-		// grafana.Configure,
-		// iam.Configure,
+		grafana.Configure,
+		iam.Configure,
 		// kafka.Configure,
 		// kinesis.Configure,
 		// kinesisanalytics.Configure,
 		// kinesisanalytics2.Configure,
-		// kms.Configure,
+		kms.Configure,
 		// lakeformation.Configure,
 		// lambda.Configure,
 		// licensemanager.Configure,
@@ -145,7 +152,7 @@ func GetProvider() *config.Provider {
 		// sns.Configure,
 		// sqs.Configure,
 		// transfer.Configure,
-		// directconnect.Configure,
+		directconnect.Configure,
 		// ds.Configure,
 		// qldb.Configure,
 		// fsx.Configure,

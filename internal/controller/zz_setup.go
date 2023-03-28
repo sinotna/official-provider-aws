@@ -33,7 +33,29 @@ import (
 	privatevirtualinterface "github.com/dkb-bank/official-provider-aws/internal/controller/directconnect/privatevirtualinterface"
 	publicvirtualinterface "github.com/dkb-bank/official-provider-aws/internal/controller/directconnect/publicvirtualinterface"
 	transitvirtualinterface "github.com/dkb-bank/official-provider-aws/internal/controller/directconnect/transitvirtualinterface"
+	instance "github.com/dkb-bank/official-provider-aws/internal/controller/ec2/instance"
+	internetgateway "github.com/dkb-bank/official-provider-aws/internal/controller/ec2/internetgateway"
 	keypair "github.com/dkb-bank/official-provider-aws/internal/controller/ec2/keypair"
+	natgateway "github.com/dkb-bank/official-provider-aws/internal/controller/ec2/natgateway"
+	networkinterface "github.com/dkb-bank/official-provider-aws/internal/controller/ec2/networkinterface"
+	route "github.com/dkb-bank/official-provider-aws/internal/controller/ec2/route"
+	routetable "github.com/dkb-bank/official-provider-aws/internal/controller/ec2/routetable"
+	securitygroup "github.com/dkb-bank/official-provider-aws/internal/controller/ec2/securitygroup"
+	securitygrouprule "github.com/dkb-bank/official-provider-aws/internal/controller/ec2/securitygrouprule"
+	subnet "github.com/dkb-bank/official-provider-aws/internal/controller/ec2/subnet"
+	tag "github.com/dkb-bank/official-provider-aws/internal/controller/ec2/tag"
+	transitgateway "github.com/dkb-bank/official-provider-aws/internal/controller/ec2/transitgateway"
+	vpc "github.com/dkb-bank/official-provider-aws/internal/controller/ec2/vpc"
+	vpcendpoint "github.com/dkb-bank/official-provider-aws/internal/controller/ec2/vpcendpoint"
+	vpcpeeringconnection "github.com/dkb-bank/official-provider-aws/internal/controller/ec2/vpcpeeringconnection"
+	lb "github.com/dkb-bank/official-provider-aws/internal/controller/elbv2/lb"
+	lblistener "github.com/dkb-bank/official-provider-aws/internal/controller/elbv2/lblistener"
+	lblistenerrule "github.com/dkb-bank/official-provider-aws/internal/controller/elbv2/lblistenerrule"
+	lbtargetgroup "github.com/dkb-bank/official-provider-aws/internal/controller/elbv2/lbtargetgroup"
+	lbtargetgroupattachment "github.com/dkb-bank/official-provider-aws/internal/controller/elbv2/lbtargetgroupattachment"
+	roleassociation "github.com/dkb-bank/official-provider-aws/internal/controller/grafana/roleassociation"
+	workspace "github.com/dkb-bank/official-provider-aws/internal/controller/grafana/workspace"
+	workspacesamlconfiguration "github.com/dkb-bank/official-provider-aws/internal/controller/grafana/workspacesamlconfiguration"
 	accesskey "github.com/dkb-bank/official-provider-aws/internal/controller/iam/accesskey"
 	accountalias "github.com/dkb-bank/official-provider-aws/internal/controller/iam/accountalias"
 	accountpasswordpolicy "github.com/dkb-bank/official-provider-aws/internal/controller/iam/accountpasswordpolicy"
@@ -63,6 +85,9 @@ import (
 	key "github.com/dkb-bank/official-provider-aws/internal/controller/kms/key"
 	replicaexternalkey "github.com/dkb-bank/official-provider-aws/internal/controller/kms/replicaexternalkey"
 	replicakey "github.com/dkb-bank/official-provider-aws/internal/controller/kms/replicakey"
+	firewall "github.com/dkb-bank/official-provider-aws/internal/controller/networkfirewall/firewall"
+	firewallpolicy "github.com/dkb-bank/official-provider-aws/internal/controller/networkfirewall/firewallpolicy"
+	rulegroup "github.com/dkb-bank/official-provider-aws/internal/controller/networkfirewall/rulegroup"
 	providerconfig "github.com/dkb-bank/official-provider-aws/internal/controller/providerconfig"
 	activereceiptruleset "github.com/dkb-bank/official-provider-aws/internal/controller/ses/activereceiptruleset"
 	configurationset "github.com/dkb-bank/official-provider-aws/internal/controller/ses/configurationset"
@@ -107,7 +132,29 @@ func Setup(mgr ctrl.Manager, o controller.Options) error {
 		privatevirtualinterface.Setup,
 		publicvirtualinterface.Setup,
 		transitvirtualinterface.Setup,
+		instance.Setup,
+		internetgateway.Setup,
 		keypair.Setup,
+		natgateway.Setup,
+		networkinterface.Setup,
+		route.Setup,
+		routetable.Setup,
+		securitygroup.Setup,
+		securitygrouprule.Setup,
+		subnet.Setup,
+		tag.Setup,
+		transitgateway.Setup,
+		vpc.Setup,
+		vpcendpoint.Setup,
+		vpcpeeringconnection.Setup,
+		lb.Setup,
+		lblistener.Setup,
+		lblistenerrule.Setup,
+		lbtargetgroup.Setup,
+		lbtargetgroupattachment.Setup,
+		roleassociation.Setup,
+		workspace.Setup,
+		workspacesamlconfiguration.Setup,
 		accesskey.Setup,
 		accountalias.Setup,
 		accountpasswordpolicy.Setup,
@@ -137,6 +184,9 @@ func Setup(mgr ctrl.Manager, o controller.Options) error {
 		key.Setup,
 		replicaexternalkey.Setup,
 		replicakey.Setup,
+		firewall.Setup,
+		firewallpolicy.Setup,
+		rulegroup.Setup,
 		providerconfig.Setup,
 		activereceiptruleset.Setup,
 		configurationset.Setup,

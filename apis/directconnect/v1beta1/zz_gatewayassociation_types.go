@@ -36,8 +36,18 @@ type GatewayAssociationParameters struct {
 
 	// The ID of the VGW or transit gateway with which to associate the Direct Connect gateway.
 	// Used for single account Direct Connect gateway associations.
+	// +crossplane:generate:reference:type=github.com/dkb-bank/official-provider-aws/apis/ec2/v1beta1.TransitGateway
+	// +crossplane:generate:reference:extractor=github.com/upbound/upjet/pkg/resource.ExtractResourceID()
 	// +kubebuilder:validation:Optional
 	AssociatedGatewayID *string `json:"associatedGatewayId,omitempty" tf:"associated_gateway_id,omitempty"`
+
+	// Reference to a TransitGateway in ec2 to populate associatedGatewayId.
+	// +kubebuilder:validation:Optional
+	AssociatedGatewayIDRef *v1.Reference `json:"associatedGatewayIdRef,omitempty" tf:"-"`
+
+	// Selector for a TransitGateway in ec2 to populate associatedGatewayId.
+	// +kubebuilder:validation:Optional
+	AssociatedGatewayIDSelector *v1.Selector `json:"associatedGatewayIdSelector,omitempty" tf:"-"`
 
 	// The ID of the AWS account that owns the VGW or transit gateway with which to associate the Direct Connect gateway.
 	// Used for cross-account Direct Connect gateway associations.

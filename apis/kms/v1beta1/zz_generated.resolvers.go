@@ -10,6 +10,7 @@ import (
 	reference "github.com/crossplane/crossplane-runtime/pkg/reference"
 	v1beta1 "github.com/dkb-bank/official-provider-aws/apis/iam/v1beta1"
 	errors "github.com/pkg/errors"
+	common "github.com/upbound/provider-aws/config/common"
 	resource "github.com/upbound/upjet/pkg/resource"
 	client "sigs.k8s.io/controller-runtime/pkg/client"
 )
@@ -23,7 +24,7 @@ func (mg *Alias) ResolveReferences(ctx context.Context, c client.Reader) error {
 
 	rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
 		CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.TargetKeyID),
-		Extract:      resource.ExtractParamPath("key_id", true),
+		Extract:      reference.ExternalName(),
 		Reference:    mg.Spec.ForProvider.TargetKeyIDRef,
 		Selector:     mg.Spec.ForProvider.TargetKeyIDSelector,
 		To: reference.To{
@@ -49,7 +50,7 @@ func (mg *Ciphertext) ResolveReferences(ctx context.Context, c client.Reader) er
 
 	rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
 		CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.KeyID),
-		Extract:      resource.ExtractParamPath("key_id", true),
+		Extract:      reference.ExternalName(),
 		Reference:    mg.Spec.ForProvider.KeyIDRef,
 		Selector:     mg.Spec.ForProvider.KeyIDSelector,
 		To: reference.To{
@@ -91,7 +92,7 @@ func (mg *Grant) ResolveReferences(ctx context.Context, c client.Reader) error {
 
 	rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
 		CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.KeyID),
-		Extract:      resource.ExtractParamPath("key_id", true),
+		Extract:      common.ARNExtractor(),
 		Reference:    mg.Spec.ForProvider.KeyIDRef,
 		Selector:     mg.Spec.ForProvider.KeyIDSelector,
 		To: reference.To{
@@ -108,6 +109,32 @@ func (mg *Grant) ResolveReferences(ctx context.Context, c client.Reader) error {
 	return nil
 }
 
+// ResolveReferences of this ReplicaExternalKey.
+func (mg *ReplicaExternalKey) ResolveReferences(ctx context.Context, c client.Reader) error {
+	r := reference.NewAPIResolver(c, mg)
+
+	var rsp reference.ResolutionResponse
+	var err error
+
+	rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
+		CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.PrimaryKeyArn),
+		Extract:      common.ARNExtractor(),
+		Reference:    mg.Spec.ForProvider.PrimaryKeyArnRef,
+		Selector:     mg.Spec.ForProvider.PrimaryKeyArnSelector,
+		To: reference.To{
+			List:    &ExternalKeyList{},
+			Managed: &ExternalKey{},
+		},
+	})
+	if err != nil {
+		return errors.Wrap(err, "mg.Spec.ForProvider.PrimaryKeyArn")
+	}
+	mg.Spec.ForProvider.PrimaryKeyArn = reference.ToPtrValue(rsp.ResolvedValue)
+	mg.Spec.ForProvider.PrimaryKeyArnRef = rsp.ResolvedReference
+
+	return nil
+}
+
 // ResolveReferences of this ReplicaKey.
 func (mg *ReplicaKey) ResolveReferences(ctx context.Context, c client.Reader) error {
 	r := reference.NewAPIResolver(c, mg)
@@ -117,7 +144,7 @@ func (mg *ReplicaKey) ResolveReferences(ctx context.Context, c client.Reader) er
 
 	rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
 		CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.PrimaryKeyArn),
-		Extract:      resource.ExtractParamPath("arn", true),
+		Extract:      common.ARNExtractor(),
 		Reference:    mg.Spec.ForProvider.PrimaryKeyArnRef,
 		Selector:     mg.Spec.ForProvider.PrimaryKeyArnSelector,
 		To: reference.To{

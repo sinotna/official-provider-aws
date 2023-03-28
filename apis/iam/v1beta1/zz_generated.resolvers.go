@@ -9,7 +9,7 @@ import (
 	"context"
 	reference "github.com/crossplane/crossplane-runtime/pkg/reference"
 	errors "github.com/pkg/errors"
-	resource "github.com/upbound/upjet/pkg/resource"
+	common "github.com/upbound/provider-aws/config/common"
 	client "sigs.k8s.io/controller-runtime/pkg/client"
 )
 
@@ -44,6 +44,7 @@ func (mg *GroupMembership) ResolveReferences(ctx context.Context, c client.Reade
 	r := reference.NewAPIResolver(c, mg)
 
 	var rsp reference.ResolutionResponse
+	var mrsp reference.MultiResolutionResponse
 	var err error
 
 	rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
@@ -61,6 +62,22 @@ func (mg *GroupMembership) ResolveReferences(ctx context.Context, c client.Reade
 	}
 	mg.Spec.ForProvider.Group = reference.ToPtrValue(rsp.ResolvedValue)
 	mg.Spec.ForProvider.GroupRef = rsp.ResolvedReference
+
+	mrsp, err = r.ResolveMultiple(ctx, reference.MultiResolutionRequest{
+		CurrentValues: reference.FromPtrValues(mg.Spec.ForProvider.Users),
+		Extract:       reference.ExternalName(),
+		References:    mg.Spec.ForProvider.UserRefs,
+		Selector:      mg.Spec.ForProvider.UserSelector,
+		To: reference.To{
+			List:    &UserList{},
+			Managed: &User{},
+		},
+	})
+	if err != nil {
+		return errors.Wrap(err, "mg.Spec.ForProvider.Users")
+	}
+	mg.Spec.ForProvider.Users = reference.ToPtrValues(mrsp.ResolvedValues)
+	mg.Spec.ForProvider.UserRefs = mrsp.ResolvedReferences
 
 	return nil
 }
@@ -90,7 +107,7 @@ func (mg *GroupPolicyAttachment) ResolveReferences(ctx context.Context, c client
 
 	rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
 		CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.PolicyArn),
-		Extract:      resource.ExtractParamPath("arn", true),
+		Extract:      common.ARNExtractor(),
 		Reference:    mg.Spec.ForProvider.PolicyArnRef,
 		Selector:     mg.Spec.ForProvider.PolicyArnSelector,
 		To: reference.To{
@@ -142,7 +159,7 @@ func (mg *RolePolicyAttachment) ResolveReferences(ctx context.Context, c client.
 
 	rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
 		CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.PolicyArn),
-		Extract:      resource.ExtractParamPath("arn", true),
+		Extract:      common.ARNExtractor(),
 		Reference:    mg.Spec.ForProvider.PolicyArnRef,
 		Selector:     mg.Spec.ForProvider.PolicyArnSelector,
 		To: reference.To{
@@ -206,7 +223,24 @@ func (mg *UserGroupMembership) ResolveReferences(ctx context.Context, c client.R
 	r := reference.NewAPIResolver(c, mg)
 
 	var rsp reference.ResolutionResponse
+	var mrsp reference.MultiResolutionResponse
 	var err error
+
+	mrsp, err = r.ResolveMultiple(ctx, reference.MultiResolutionRequest{
+		CurrentValues: reference.FromPtrValues(mg.Spec.ForProvider.Groups),
+		Extract:       reference.ExternalName(),
+		References:    mg.Spec.ForProvider.GroupRefs,
+		Selector:      mg.Spec.ForProvider.GroupSelector,
+		To: reference.To{
+			List:    &GroupList{},
+			Managed: &Group{},
+		},
+	})
+	if err != nil {
+		return errors.Wrap(err, "mg.Spec.ForProvider.Groups")
+	}
+	mg.Spec.ForProvider.Groups = reference.ToPtrValues(mrsp.ResolvedValues)
+	mg.Spec.ForProvider.GroupRefs = mrsp.ResolvedReferences
 
 	rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
 		CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.User),
@@ -262,7 +296,7 @@ func (mg *UserPolicyAttachment) ResolveReferences(ctx context.Context, c client.
 
 	rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
 		CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.PolicyArn),
-		Extract:      resource.ExtractParamPath("arn", true),
+		Extract:      common.ARNExtractor(),
 		Reference:    mg.Spec.ForProvider.PolicyArnRef,
 		Selector:     mg.Spec.ForProvider.PolicyArnSelector,
 		To: reference.To{

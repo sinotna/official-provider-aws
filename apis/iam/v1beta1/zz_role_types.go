@@ -14,17 +14,15 @@ import (
 )
 
 type InlinePolicyObservation struct {
-}
-
-type InlinePolicyParameters struct {
 
 	// Friendly name of the role. See IAM Identifiers for more information.
-	// +kubebuilder:validation:Optional
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
 	// Policy document as a JSON formatted string.
-	// +kubebuilder:validation:Optional
 	Policy *string `json:"policy,omitempty" tf:"policy,omitempty"`
+}
+
+type InlinePolicyParameters struct {
 }
 
 type RoleObservation struct {
@@ -37,6 +35,12 @@ type RoleObservation struct {
 
 	// Name of the role.
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
+
+	// Configuration block defining an exclusive set of IAM inline policies associated with the IAM role. See below. Configuring one empty block (i.e.
+	InlinePolicy []InlinePolicyObservation `json:"inlinePolicy,omitempty" tf:"inline_policy,omitempty"`
+
+	// Set of exclusive IAM managed policy ARNs to attach to the IAM role. Configuring an empty set (i.e.
+	ManagedPolicyArns []*string `json:"managedPolicyArns,omitempty" tf:"managed_policy_arns,omitempty"`
 
 	// A map of tags assigned to the resource, including those inherited from the provider default_tags configuration block.
 	TagsAll map[string]*string `json:"tagsAll,omitempty" tf:"tags_all,omitempty"`
@@ -58,14 +62,6 @@ type RoleParameters struct {
 	// Whether to force detaching any policies the role has before destroying it. Defaults to false.
 	// +kubebuilder:validation:Optional
 	ForceDetachPolicies *bool `json:"forceDetachPolicies,omitempty" tf:"force_detach_policies,omitempty"`
-
-	// Configuration block defining an exclusive set of IAM inline policies associated with the IAM role. See below. Configuring one empty block (i.e.
-	// +kubebuilder:validation:Optional
-	InlinePolicy []InlinePolicyParameters `json:"inlinePolicy,omitempty" tf:"inline_policy,omitempty"`
-
-	// Set of exclusive IAM managed policy ARNs to attach to the IAM role. Configuring an empty set (i.e.
-	// +kubebuilder:validation:Optional
-	ManagedPolicyArns []*string `json:"managedPolicyArns,omitempty" tf:"managed_policy_arns,omitempty"`
 
 	// Maximum session duration (in seconds) that you want to set for the specified role. If you do not specify a value for this setting, the default maximum of one hour is applied. This setting can have a value from 1 hour to 12 hours.
 	// +kubebuilder:validation:Optional
