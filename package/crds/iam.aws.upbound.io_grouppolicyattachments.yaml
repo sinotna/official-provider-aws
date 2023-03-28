@@ -68,7 +68,7 @@ spec:
                     description: The group the policy should be applied to
                     type: string
                   groupRef:
-                    description: Reference to a Group in iam to populate group.
+                    description: Reference to a Group to populate group.
                     properties:
                       name:
                         description: Name of the referenced object.
@@ -102,7 +102,7 @@ spec:
                     - name
                     type: object
                   groupSelector:
-                    description: Selector for a Group in iam to populate group.
+                    description: Selector for a Group to populate group.
                     properties:
                       matchControllerRef:
                         description: MatchControllerRef ensures an object with the
@@ -144,7 +144,7 @@ spec:
                     description: The ARN of the policy you want to apply
                     type: string
                   policyArnRef:
-                    description: Reference to a Policy in iam to populate policyArn.
+                    description: Reference to a Policy to populate policyArn.
                     properties:
                       name:
                         description: Name of the referenced object.
@@ -178,7 +178,7 @@ spec:
                     - name
                     type: object
                   policyArnSelector:
-                    description: Selector for a Policy in iam to populate policyArn.
+                    description: Selector for a Policy to populate policyArn.
                     properties:
                       matchControllerRef:
                         description: MatchControllerRef ensures an object with the

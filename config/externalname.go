@@ -138,14 +138,16 @@ var ExternalNameConfigs = map[string]config.ExternalName{
 	// // No import
 	// "aws_ebs_snapshot_import": config.IdentifierFromProvider,
 
-	// // ec2
-	// //
-	// // Instances can be imported using the id: i-12345678
-	// "aws_instance": config.IdentifierFromProvider,
+	// ec2
+	//
+	// Instances can be imported using the id: i-12345678
+	"aws_instance": config.IdentifierFromProvider,
 	// // No terraform import.
 	// "aws_eip": config.IdentifierFromProvider,
-	// // Imported by using the EC2 Transit Gateway identifier: tgw-12345678
-	// "aws_ec2_transit_gateway": config.IdentifierFromProvider,
+	// aws_ec2_tag can be imported by using the EC2 resource identifier and key, separated by a comma (,)
+	"aws_ec2_tag": config.TemplatedStringAsIdentifier("", "{{ .parameters.resource_id }}_{{ .parameters.key }}"),
+	// Imported by using the EC2 Transit Gateway identifier: tgw-12345678
+	"aws_ec2_transit_gateway": config.IdentifierFromProvider,
 	// // Imported by using the EC2 Transit Gateway Route Table, an underscore,
 	// // and the destination CIDR: tgw-rtb-12345678_0.0.0.0/0
 	// "aws_ec2_transit_gateway_route": FormattedIdentifierFromProvider("_", "transit_gateway_route_table_id", "destination_cidr_block"),
@@ -165,31 +167,31 @@ var ExternalNameConfigs = map[string]config.ExternalName{
 	// "aws_launch_template": config.IdentifierFromProvider,
 	// // Launch configurations can be imported using the name
 	// "aws_launch_configuration": config.NameAsIdentifier,
-	// // Imported using the id: vpc-23123
-	// "aws_vpc": config.IdentifierFromProvider,
-	// // Imported using the vpc endpoint id: vpce-3ecf2a57
-	// "aws_vpc_endpoint": config.IdentifierFromProvider,
-	// // Imported using the subnet id: subnet-9d4a7b6c
-	// "aws_subnet": config.IdentifierFromProvider,
-	// // Imported using the id: eni-e5aa89a3
-	// "aws_network_interface": config.IdentifierFromProvider,
-	// // Imported using the id: sg-903004f8
-	// "aws_security_group": config.IdentifierFromProvider,
-	// // Imported using a very complex format:
-	// // https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/security_group_rule
-	// "aws_security_group_rule": config.IdentifierFromProvider,
+	// Imported using the id: vpc-23123
+	"aws_vpc": config.IdentifierFromProvider,
+	// Imported using the vpc endpoint id: vpce-3ecf2a57
+	"aws_vpc_endpoint": config.IdentifierFromProvider,
+	// Imported using the subnet id: subnet-9d4a7b6c
+	"aws_subnet": config.IdentifierFromProvider,
+	// Imported using the id: eni-e5aa89a3
+	"aws_network_interface": config.IdentifierFromProvider,
+	// Imported using the id: sg-903004f8
+	"aws_security_group": config.IdentifierFromProvider,
+	// Imported using a very complex format:
+	// https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/security_group_rule
+	"aws_security_group_rule": config.IdentifierFromProvider,
 	// // Imported by using the VPC CIDR Association ID: vpc-cidr-assoc-xxxxxxxx
 	// "aws_vpc_ipv4_cidr_block_association": config.IdentifierFromProvider,
-	// // Imported using the vpc peering id: pcx-111aaa111
-	// "aws_vpc_peering_connection": config.IdentifierFromProvider,
+	// Imported using the vpc peering id: pcx-111aaa111
+	"aws_vpc_peering_connection": config.IdentifierFromProvider,
 	// // Imported using the vpc peering id: pcx-111aaa111
 	// "aws_vpc_peering_connection_options": config.IdentifierFromProvider,
 	// // Imported using the peering connection id: pcx-12345678
 	// "aws_vpc_peering_connection_accepter": config.IdentifierFromProvider,
-	// // Imported using the following format: ROUTETABLEID_DESTINATION
-	// "aws_route": route(),
-	// // Imported using id: rtb-4e616f6d69
-	// "aws_route_table": config.IdentifierFromProvider,
+	// Imported using the following format: ROUTETABLEID_DESTINATION
+	"aws_route": route(),
+	// Imported using id: rtb-4e616f6d69
+	"aws_route_table": config.IdentifierFromProvider,
 	// // Imported using the associated resource ID and Route Table ID separated
 	// // by a forward slash (/)
 	// "aws_route_table_association": routeTableAssociation(),
@@ -203,10 +205,10 @@ var ExternalNameConfigs = map[string]config.ExternalName{
 	// // underscore, and the EC2 Transit Gateway Attachment identifier:
 	// // tgw-rtb-12345678_tgw-attach-87654321
 	// "aws_ec2_transit_gateway_route_table_propagation": FormattedIdentifierFromProvider("_", "transit_gateway_route_table_id", "transit_gateway_attachment_id"),
-	// // Imported using the id: igw-c0a643a9
-	// "aws_internet_gateway": config.IdentifierFromProvider,
-	// // NAT Gateways can be imported using the id
-	// "aws_nat_gateway": config.IdentifierFromProvider,
+	// Imported using the id: igw-c0a643a9
+	"aws_internet_gateway": config.IdentifierFromProvider,
+	// NAT Gateways can be imported using the id
+	"aws_nat_gateway": config.IdentifierFromProvider,
 	// // aws_ec2_transit_gateway_multicast_domain can be imported by using the EC2 Transit Gateway Multicast Domain identifier
 	// "aws_ec2_transit_gateway_multicast_domain": config.IdentifierFromProvider,
 	// // No import
@@ -391,16 +393,16 @@ var ExternalNameConfigs = map[string]config.ExternalName{
 	// "aws_elasticache_user":              config.ParameterAsIdentifier("user_id"),
 	// "aws_elasticache_user_group":        config.ParameterAsIdentifier("user_group_id"),
 
-	// // elasticloadbalancing
-	// //
-	// // arn:aws:elasticloadbalancing:us-west-2:123456789012:loadbalancer/app/my-load-balancer/50dc6c495c0c9188
-	// "aws_lb": config.IdentifierFromProvider,
-	// // arn:aws:elasticloadbalancing:us-west-2:187416307283:listener/app/front-end-alb/8e4497da625e2d8a/9ab28ade35828f96
-	// "aws_lb_listener": config.IdentifierFromProvider,
-	// // arn:aws:elasticloadbalancing:us-west-2:187416307283:targetgroup/app-front-end/20cfe21448b66314
-	// "aws_lb_target_group": config.IdentifierFromProvider,
-	// // No import.
-	// "aws_lb_target_group_attachment": config.IdentifierFromProvider,
+	// elasticloadbalancing
+	//
+	// arn:aws:elasticloadbalancing:us-west-2:123456789012:loadbalancer/app/my-load-balancer/50dc6c495c0c9188
+	"aws_lb": config.IdentifierFromProvider,
+	// arn:aws:elasticloadbalancing:us-west-2:187416307283:listener/app/front-end-alb/8e4497da625e2d8a/9ab28ade35828f96
+	"aws_lb_listener": config.IdentifierFromProvider,
+	// arn:aws:elasticloadbalancing:us-west-2:187416307283:targetgroup/app-front-end/20cfe21448b66314
+	"aws_lb_target_group": config.IdentifierFromProvider,
+	// No import.
+	"aws_lb_target_group_attachment": config.IdentifierFromProvider,
 
 	// // globalaccelerator
 	// //
@@ -841,14 +843,14 @@ var ExternalNameConfigs = map[string]config.ExternalName{
 	// // Backup vault policy can be imported using the name of the backup vault
 	// "aws_backup_vault_policy": config.IdentifierFromProvider,
 
-	// // grafana
-	// //
-	// // Grafana Workspace can be imported using the workspace's id
-	// "aws_grafana_workspace": config.IdentifierFromProvider,
-	// // No import
-	// "aws_grafana_role_association": config.IdentifierFromProvider,
-	// // Grafana Workspace SAML configuration can be imported using the workspace's id
-	// "aws_grafana_workspace_saml_configuration": FormattedIdentifierFromProvider("", "workspace_id"),
+	// grafana
+	//
+	// Grafana Workspace can be imported using the workspace's id
+	"aws_grafana_workspace": config.IdentifierFromProvider,
+	// No import
+	"aws_grafana_role_association": config.IdentifierFromProvider,
+	// Grafana Workspace SAML configuration can be imported using the workspace's id
+	"aws_grafana_workspace_saml_configuration": FormattedIdentifierFromProvider("", "workspace_id"),
 
 	// // gamelift
 	// //
@@ -1953,10 +1955,10 @@ var ExternalNameConfigs = map[string]config.ExternalName{
 	// // SageMaker Code Images can be imported using the name
 	// "aws_sagemaker_image_version": config.IdentifierFromProvider,
 
-	// // elbv2
-	// //
-	// // Rules can be imported using their ARN
-	// "aws_lb_listener_rule": config.IdentifierFromProvider,
+	// elbv2
+	//
+	// Rules can be imported using their ARN
+	"aws_lb_listener_rule": config.IdentifierFromProvider,
 
 	// // fsx
 	// //
@@ -2082,14 +2084,18 @@ var ExternalNameConfigs = map[string]config.ExternalName{
 	// // SimpleDB Domains can be imported using the name
 	// "aws_simpledb_domain": config.NameAsIdentifier,
 
-	// // networkfirewall
-	// //
-	// // Network Firewall Policies can be imported using their ARN
-	// // Example: arn:aws:network-firewall:us-west-1:123456789012:firewall-policy/example
-	// "aws_networkfirewall_firewall_policy": config.TemplatedStringAsIdentifier("name", "arn:aws:network-firewall:{{ .parameters.region }}:{{ .setup.client_metadata.account_id }}:firewall-policy/{{ .external_name }}"),
-	// // Network Firewall Rule Groups can be imported using their ARN
-	// // Example: arn:aws:network-firewall:us-west-1:123456789012:stateful-rulegroup/example
-	// "aws_networkfirewall_rule_group": config.TemplatedStringAsIdentifier("", "arn:aws:network-firewall:{{ .parameters.region }}:{{ .setup.client_metadata.account_id }}:stateful-rulegroup/{{ .external_name }}"),
+	// networkfirewall
+	//
+	// Network Firewall Firewalls can be imported using their ARN
+	// Example: arn:aws:network-firewall:us-west-1:123456789012:firewall/example
+	// "aws_networkfirewall_firewall": config.TemplatedStringAsIdentifier("name", "arn:aws:network-firewall:{{ .setup.configuration.region }}:{{ .setup.configuration.account_id }}:firewall/{{ .external_name }}"),
+	"aws_networkfirewall_firewall": config.IdentifierFromProvider,
+	// Network Firewall Policies can be imported using their ARN
+	// Example: arn:aws:network-firewall:us-west-1:123456789012:firewall-policy/example
+	"aws_networkfirewall_firewall_policy": config.TemplatedStringAsIdentifier("name", "arn:aws:network-firewall:{{ .parameters.region }}:{{ .setup.client_metadata.account_id }}:firewall-policy/{{ .external_name }}"),
+	// Network Firewall Rule Groups can be imported using their ARN
+	// Example: arn:aws:network-firewall:us-west-1:123456789012:stateful-rulegroup/example
+	"aws_networkfirewall_rule_group": config.TemplatedStringAsIdentifier("", "arn:aws:network-firewall:{{ .parameters.region }}:{{ .setup.client_metadata.account_id }}:stateful-rulegroup/{{ .external_name }}"),
 
 	// // networkmanager
 	// //
@@ -2329,25 +2335,25 @@ func kmsAlias() config.ExternalName {
 	return e
 }
 
-// func route() config.ExternalName {
-// 	e := config.IdentifierFromProvider
-// 	e.GetIDFn = func(_ context.Context, _ string, parameters map[string]interface{}, _ map[string]interface{}) (string, error) {
-// 		rtb, ok := parameters["route_table_id"]
-// 		if !ok {
-// 			return "", errors.New("route_table_id cannot be empty")
-// 		}
-// 		switch {
-// 		case parameters["destination_cidr_block"] != nil:
-// 			return fmt.Sprintf("%s_%s", rtb.(string), parameters["destination_cidr_block"].(string)), nil
-// 		case parameters["destination_ipv6_cidr_block"] != nil:
-// 			return fmt.Sprintf("%s_%s", rtb.(string), parameters["destination_ipv6_cidr_block"].(string)), nil
-// 		case parameters["destination_prefix_list_id"] != nil:
-// 			return fmt.Sprintf("%s_%s", rtb.(string), parameters["destination_prefix_list_id"].(string)), nil
-// 		}
-// 		return "", errors.New("destination_cidr_block or destination_ipv6_cidr_block or destination_prefix_list_id has to be given")
-// 	}
-// 	return e
-// }
+func route() config.ExternalName {
+	e := config.IdentifierFromProvider
+	e.GetIDFn = func(_ context.Context, _ string, parameters map[string]interface{}, _ map[string]interface{}) (string, error) {
+		rtb, ok := parameters["route_table_id"]
+		if !ok {
+			return "", errors.New("route_table_id cannot be empty")
+		}
+		switch {
+		case parameters["destination_cidr_block"] != nil:
+			return fmt.Sprintf("%s_%s", rtb.(string), parameters["destination_cidr_block"].(string)), nil
+		case parameters["destination_ipv6_cidr_block"] != nil:
+			return fmt.Sprintf("%s_%s", rtb.(string), parameters["destination_ipv6_cidr_block"].(string)), nil
+		case parameters["destination_prefix_list_id"] != nil:
+			return fmt.Sprintf("%s_%s", rtb.(string), parameters["destination_prefix_list_id"].(string)), nil
+		}
+		return "", errors.New("destination_cidr_block or destination_ipv6_cidr_block or destination_prefix_list_id has to be given")
+	}
+	return e
+}
 
 // func routeTableAssociation() config.ExternalName {
 // 	e := config.IdentifierFromProvider

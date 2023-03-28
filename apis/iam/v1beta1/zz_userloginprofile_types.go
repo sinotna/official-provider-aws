@@ -42,15 +42,15 @@ type UserLoginProfileParameters struct {
 	PgpKey *string `json:"pgpKey,omitempty" tf:"pgp_key,omitempty"`
 
 	// The IAM user's name.
-	// +crossplane:generate:reference:type=github.com/dkb-bank/official-provider-aws/apis/iam/v1beta1.User
+	// +crossplane:generate:reference:type=User
 	// +kubebuilder:validation:Optional
 	User *string `json:"user,omitempty" tf:"user,omitempty"`
 
-	// Reference to a User in iam to populate user.
+	// Reference to a User to populate user.
 	// +kubebuilder:validation:Optional
 	UserRef *v1.Reference `json:"userRef,omitempty" tf:"-"`
 
-	// Selector for a User in iam to populate user.
+	// Selector for a User to populate user.
 	// +kubebuilder:validation:Optional
 	UserSelector *v1.Selector `json:"userSelector,omitempty" tf:"-"`
 }

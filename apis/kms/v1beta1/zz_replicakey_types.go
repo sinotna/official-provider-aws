@@ -63,16 +63,16 @@ type ReplicaKeyParameters struct {
 	Policy *string `json:"policy,omitempty" tf:"policy,omitempty"`
 
 	// The ARN of the multi-Region primary key to replicate. The primary key must be in a different AWS Region of the same AWS Partition. You can create only one replica of a given primary key in each AWS Region.
-	// +crossplane:generate:reference:type=github.com/dkb-bank/official-provider-aws/apis/kms/v1beta1.Key
-	// +crossplane:generate:reference:extractor=github.com/upbound/upjet/pkg/resource.ExtractParamPath("arn",true)
+	// +crossplane:generate:reference:type=Key
+	// +crossplane:generate:reference:extractor=github.com/upbound/provider-aws/config/common.ARNExtractor()
 	// +kubebuilder:validation:Optional
 	PrimaryKeyArn *string `json:"primaryKeyArn,omitempty" tf:"primary_key_arn,omitempty"`
 
-	// Reference to a Key in kms to populate primaryKeyArn.
+	// Reference to a Key to populate primaryKeyArn.
 	// +kubebuilder:validation:Optional
 	PrimaryKeyArnRef *v1.Reference `json:"primaryKeyArnRef,omitempty" tf:"-"`
 
-	// Selector for a Key in kms to populate primaryKeyArn.
+	// Selector for a Key to populate primaryKeyArn.
 	// +kubebuilder:validation:Optional
 	PrimaryKeyArnSelector *v1.Selector `json:"primaryKeyArnSelector,omitempty" tf:"-"`
 

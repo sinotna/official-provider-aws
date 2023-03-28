@@ -8,7 +8,9 @@ metadata:
   name: example
 spec:
   forProvider:
-    associatedGatewayId: ${aws_vpn_gateway.example.id}
+    associatedGatewayIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: example
     dxGatewayIdSelector:
       matchLabels:
         testing.upbound.io/example-name: example
@@ -28,6 +30,21 @@ spec:
   forProvider:
     amazonSideAsn: "64512"
     name: example
+    region: us-west-1
+
+---
+
+apiVersion: ec2.aws.upbound.io/v1beta1
+kind: VPC
+metadata:
+  annotations:
+    meta.upbound.io/example-id: directconnect/v1beta1/gatewayassociation
+  labels:
+    testing.upbound.io/example-name: example
+  name: example
+spec:
+  forProvider:
+    cidrBlock: 10.255.255.0/28
     region: us-west-1
 
 ---

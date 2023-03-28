@@ -99,7 +99,7 @@ spec:
                       key in each AWS Region.
                     type: string
                   primaryKeyArnRef:
-                    description: Reference to a Key in kms to populate primaryKeyArn.
+                    description: Reference to a Key to populate primaryKeyArn.
                     properties:
                       name:
                         description: Name of the referenced object.
@@ -133,7 +133,7 @@ spec:
                     - name
                     type: object
                   primaryKeyArnSelector:
-                    description: Selector for a Key in kms to populate primaryKeyArn.
+                    description: Selector for a Key to populate primaryKeyArn.
                     properties:
                       matchControllerRef:
                         description: MatchControllerRef ensures an object with the

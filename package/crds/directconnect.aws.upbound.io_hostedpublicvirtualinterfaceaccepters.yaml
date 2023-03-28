@@ -80,8 +80,8 @@ spec:
                       accept.
                     type: string
                   virtualInterfaceIdRef:
-                    description: Reference to a HostedPublicVirtualInterface in directconnect
-                      to populate virtualInterfaceId.
+                    description: Reference to a HostedPublicVirtualInterface to populate
+                      virtualInterfaceId.
                     properties:
                       name:
                         description: Name of the referenced object.
@@ -115,8 +115,8 @@ spec:
                     - name
                     type: object
                   virtualInterfaceIdSelector:
-                    description: Selector for a HostedPublicVirtualInterface in directconnect
-                      to populate virtualInterfaceId.
+                    description: Selector for a HostedPublicVirtualInterface to populate
+                      virtualInterfaceId.
                     properties:
                       matchControllerRef:
                         description: MatchControllerRef ensures an object with the

@@ -32,16 +32,15 @@ type AliasParameters struct {
 	Region *string `json:"region" tf:"-"`
 
 	// Identifier for the key for which the alias is for, can be either an ARN or key_id.
-	// +crossplane:generate:reference:type=github.com/dkb-bank/official-provider-aws/apis/kms/v1beta1.Key
-	// +crossplane:generate:reference:extractor=github.com/upbound/upjet/pkg/resource.ExtractParamPath("key_id",true)
+	// +crossplane:generate:reference:type=Key
 	// +kubebuilder:validation:Optional
 	TargetKeyID *string `json:"targetKeyId,omitempty" tf:"target_key_id,omitempty"`
 
-	// Reference to a Key in kms to populate targetKeyId.
+	// Reference to a Key to populate targetKeyId.
 	// +kubebuilder:validation:Optional
 	TargetKeyIDRef *v1.Reference `json:"targetKeyIdRef,omitempty" tf:"-"`
 
-	// Selector for a Key in kms to populate targetKeyId.
+	// Selector for a Key to populate targetKeyId.
 	// +kubebuilder:validation:Optional
 	TargetKeyIDSelector *v1.Selector `json:"targetKeyIdSelector,omitempty" tf:"-"`
 }

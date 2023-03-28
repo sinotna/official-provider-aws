@@ -1,0 +1,27 @@
+apiVersion: elbv2.aws.upbound.io/v1beta1
+kind: LB
+metadata:
+  annotations:
+    meta.upbound.io/example-id: elbv2/v1beta1/lb
+  labels:
+    testing.upbound.io/example-name: test
+  name: test
+spec:
+  forProvider:
+    accessLogs:
+    - bucket: ${aws_s3_bucket.lb_logs.id}
+      enabled: true
+      prefix: test-lb
+    enableDeletionProtection: true
+    internal: false
+    loadBalancerType: application
+    name: test-lb-tf
+    region: us-west-1
+    securityGroups:
+    - ${aws_security_group.lb_sg.id}
+    subnets: '${[for subnet in aws_subnet.public : subnet.id]}'
+    tags:
+      Environment: production
+
+---
+

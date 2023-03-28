@@ -20,15 +20,15 @@ type GroupMembershipObservation struct {
 type GroupMembershipParameters struct {
 
 	// –  The IAM Group name to attach the list of users to
-	// +crossplane:generate:reference:type=github.com/dkb-bank/official-provider-aws/apis/iam/v1beta1.Group
+	// +crossplane:generate:reference:type=Group
 	// +kubebuilder:validation:Optional
 	Group *string `json:"group,omitempty" tf:"group,omitempty"`
 
-	// Reference to a Group in iam to populate group.
+	// Reference to a Group to populate group.
 	// +kubebuilder:validation:Optional
 	GroupRef *v1.Reference `json:"groupRef,omitempty" tf:"-"`
 
-	// Selector for a Group in iam to populate group.
+	// Selector for a Group to populate group.
 	// +kubebuilder:validation:Optional
 	GroupSelector *v1.Selector `json:"groupSelector,omitempty" tf:"-"`
 
@@ -36,9 +36,20 @@ type GroupMembershipParameters struct {
 	// +kubebuilder:validation:Required
 	Name *string `json:"name" tf:"name,omitempty"`
 
+	// References to User to populate users.
+	// +kubebuilder:validation:Optional
+	UserRefs []v1.Reference `json:"userRefs,omitempty" tf:"-"`
+
+	// Selector for a list of User to populate users.
+	// +kubebuilder:validation:Optional
+	UserSelector *v1.Selector `json:"userSelector,omitempty" tf:"-"`
+
 	// A list of IAM User names to associate with the Group
-	// +kubebuilder:validation:Required
-	Users []*string `json:"users" tf:"users,omitempty"`
+	// +crossplane:generate:reference:type=User
+	// +crossplane:generate:reference:refFieldName=UserRefs
+	// +crossplane:generate:reference:selectorFieldName=UserSelector
+	// +kubebuilder:validation:Optional
+	Users []*string `json:"users,omitempty" tf:"users,omitempty"`
 }
 
 // GroupMembershipSpec defines the desired state of GroupMembership

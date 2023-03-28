@@ -14,7 +14,9 @@ spec:
       key: example-key
       name: example-secret
       namespace: upbound-system
-    primaryKeyArn: ${aws_kms_external.primary.arn}
+    primaryKeyArnSelector:
+      matchLabels:
+        testing.upbound.io/example-name: primary
     region: us-west-1
 
 ---

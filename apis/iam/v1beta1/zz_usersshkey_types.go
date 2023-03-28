@@ -39,15 +39,15 @@ type UserSSHKeyParameters struct {
 	Status *string `json:"status,omitempty" tf:"status,omitempty"`
 
 	// The name of the IAM user to associate the SSH public key with.
-	// +crossplane:generate:reference:type=github.com/dkb-bank/official-provider-aws/apis/iam/v1beta1.User
+	// +crossplane:generate:reference:type=User
 	// +kubebuilder:validation:Optional
 	Username *string `json:"username,omitempty" tf:"username,omitempty"`
 
-	// Reference to a User in iam to populate username.
+	// Reference to a User to populate username.
 	// +kubebuilder:validation:Optional
 	UsernameRef *v1.Reference `json:"usernameRef,omitempty" tf:"-"`
 
-	// Selector for a User in iam to populate username.
+	// Selector for a User to populate username.
 	// +kubebuilder:validation:Optional
 	UsernameSelector *v1.Selector `json:"usernameSelector,omitempty" tf:"-"`
 }

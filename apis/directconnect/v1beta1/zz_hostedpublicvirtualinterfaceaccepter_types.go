@@ -37,16 +37,15 @@ type HostedPublicVirtualInterfaceAccepterParameters struct {
 	Tags map[string]*string `json:"tags,omitempty" tf:"tags,omitempty"`
 
 	// The ID of the Direct Connect virtual interface to accept.
-	// +crossplane:generate:reference:type=github.com/dkb-bank/official-provider-aws/apis/directconnect/v1beta1.HostedPublicVirtualInterface
-	// +crossplane:generate:reference:extractor=github.com/upbound/upjet/pkg/resource.ExtractResourceID()
+	// +crossplane:generate:reference:type=HostedPublicVirtualInterface
 	// +kubebuilder:validation:Optional
 	VirtualInterfaceID *string `json:"virtualInterfaceId,omitempty" tf:"virtual_interface_id,omitempty"`
 
-	// Reference to a HostedPublicVirtualInterface in directconnect to populate virtualInterfaceId.
+	// Reference to a HostedPublicVirtualInterface to populate virtualInterfaceId.
 	// +kubebuilder:validation:Optional
 	VirtualInterfaceIDRef *v1.Reference `json:"virtualInterfaceIdRef,omitempty" tf:"-"`
 
-	// Selector for a HostedPublicVirtualInterface in directconnect to populate virtualInterfaceId.
+	// Selector for a HostedPublicVirtualInterface to populate virtualInterfaceId.
 	// +kubebuilder:validation:Optional
 	VirtualInterfaceIDSelector *v1.Selector `json:"virtualInterfaceIdSelector,omitempty" tf:"-"`
 }

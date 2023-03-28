@@ -12,9 +12,9 @@ spec:
       matchLabels:
         testing.upbound.io/example-name: group
     name: tf-testing-group-membership
-    users:
-    - ${aws_iam_user.user_one.name}
-    - ${aws_iam_user.user_two.name}
+    userRefs:
+    - name: user_one
+    - name: user_two
 
 ---
 
