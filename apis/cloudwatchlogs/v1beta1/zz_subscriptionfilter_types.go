@@ -20,8 +20,18 @@ type SubscriptionFilterObservation struct {
 type SubscriptionFilterParameters struct {
 
 	// The ARN of the destination to deliver matching log events to. Kinesis stream or Lambda function ARN.
-	// +kubebuilder:validation:Required
-	DestinationArn *string `json:"destinationArn" tf:"destination_arn,omitempty"`
+	// +crossplane:generate:reference:type=github.com/dkb-bank/official-provider-aws/apis/kinesis/v1beta1.Stream
+	// +crossplane:generate:reference:extractor=github.com/upbound/provider-aws/config/common.TerraformID()
+	// +kubebuilder:validation:Optional
+	DestinationArn *string `json:"destinationArn,omitempty" tf:"destination_arn,omitempty"`
+
+	// Reference to a Stream in kinesis to populate destinationArn.
+	// +kubebuilder:validation:Optional
+	DestinationArnRef *v1.Reference `json:"destinationArnRef,omitempty" tf:"-"`
+
+	// Selector for a Stream in kinesis to populate destinationArn.
+	// +kubebuilder:validation:Optional
+	DestinationArnSelector *v1.Selector `json:"destinationArnSelector,omitempty" tf:"-"`
 
 	// The method used to distribute log data to the destination. By default log data is grouped by log stream, but the grouping can be set to random for a more even distribution. This property is only applicable when the destination is an Amazon Kinesis stream. Valid values are "Random" and "ByLogStream".
 	// +kubebuilder:validation:Optional

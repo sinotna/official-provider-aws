@@ -101,8 +101,18 @@ type KinesisDestinationParameters struct {
 	RoleArnSelector *v1.Selector `json:"roleArnSelector,omitempty" tf:"-"`
 
 	// The ARN of the Kinesis Stream
-	// +kubebuilder:validation:Required
-	StreamArn *string `json:"streamArn" tf:"stream_arn,omitempty"`
+	// +crossplane:generate:reference:type=github.com/dkb-bank/official-provider-aws/apis/firehose/v1beta1.DeliveryStream
+	// +crossplane:generate:reference:extractor=github.com/upbound/upjet/pkg/resource.ExtractParamPath("arn",false)
+	// +kubebuilder:validation:Optional
+	StreamArn *string `json:"streamArn,omitempty" tf:"stream_arn,omitempty"`
+
+	// Reference to a DeliveryStream in firehose to populate streamArn.
+	// +kubebuilder:validation:Optional
+	StreamArnRef *v1.Reference `json:"streamArnRef,omitempty" tf:"-"`
+
+	// Selector for a DeliveryStream in firehose to populate streamArn.
+	// +kubebuilder:validation:Optional
+	StreamArnSelector *v1.Selector `json:"streamArnSelector,omitempty" tf:"-"`
 }
 
 type SnsDestinationObservation struct {

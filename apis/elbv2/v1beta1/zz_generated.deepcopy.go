@@ -37,6 +37,16 @@ func (in *AccessLogsParameters) DeepCopyInto(out *AccessLogsParameters) {
 		*out = new(string)
 		**out = **in
 	}
+	if in.BucketRef != nil {
+		in, out := &in.BucketRef, &out.BucketRef
+		*out = new(v1.Reference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.BucketSelector != nil {
+		in, out := &in.BucketSelector, &out.BucketSelector
+		*out = new(v1.Selector)
+		(*in).DeepCopyInto(*out)
+	}
 	if in.Enabled != nil {
 		in, out := &in.Enabled, &out.Enabled
 		*out = new(bool)

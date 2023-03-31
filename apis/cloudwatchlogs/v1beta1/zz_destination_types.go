@@ -50,8 +50,18 @@ type DestinationParameters struct {
 	Tags map[string]*string `json:"tags,omitempty" tf:"tags,omitempty"`
 
 	// The ARN of the target Amazon Kinesis stream resource for the destination.
-	// +kubebuilder:validation:Required
-	TargetArn *string `json:"targetArn" tf:"target_arn,omitempty"`
+	// +crossplane:generate:reference:type=github.com/dkb-bank/official-provider-aws/apis/kinesis/v1beta1.Stream
+	// +crossplane:generate:reference:extractor=github.com/upbound/provider-aws/config/common.TerraformID()
+	// +kubebuilder:validation:Optional
+	TargetArn *string `json:"targetArn,omitempty" tf:"target_arn,omitempty"`
+
+	// Reference to a Stream in kinesis to populate targetArn.
+	// +kubebuilder:validation:Optional
+	TargetArnRef *v1.Reference `json:"targetArnRef,omitempty" tf:"-"`
+
+	// Selector for a Stream in kinesis to populate targetArn.
+	// +kubebuilder:validation:Optional
+	TargetArnSelector *v1.Selector `json:"targetArnSelector,omitempty" tf:"-"`
 }
 
 // DestinationSpec defines the desired state of Destination
