@@ -16,6 +16,8 @@ package cloudwatchlogs
 
 import (
 	"github.com/upbound/upjet/pkg/config"
+
+	"github.com/dkb-bank/official-provider-aws/config/common"
 )
 
 // Configure adds configurations for cloudwatchlogs group.
@@ -32,17 +34,17 @@ func Configure(p *config.Provider) {
 		// with a manual reference with the correct extractor. But if
 		// we observe more cases of this, we may reconsider making reference
 		// injection be able to consume the last state of resource configuration.
-		// r.References["target_arn"] = config.Reference{
-		// 	TerraformName: "aws_kinesis_stream",
-		// 	Extractor:     common.PathTerraformIDExtractor,
-		// }
+		r.References["target_arn"] = config.Reference{
+			TerraformName: "aws_kinesis_stream",
+			Extractor:     common.PathTerraformIDExtractor,
+		}
 	})
 	p.AddResourceConfigurator("aws_cloudwatch_log_subscription_filter", func(r *config.Resource) {
 		// Please see the comment for aws_cloudwatch_log_destination.target_arn
 		// reference configuration
-		// r.References["destination_arn"] = config.Reference{
-		// 	TerraformName: "aws_kinesis_stream",
-		// 	Extractor:     common.PathTerraformIDExtractor,
-		// }
+		r.References["destination_arn"] = config.Reference{
+			TerraformName: "aws_kinesis_stream",
+			Extractor:     common.PathTerraformIDExtractor,
+		}
 	})
 }

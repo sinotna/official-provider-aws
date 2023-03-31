@@ -8,6 +8,7 @@ package v1beta1
 import (
 	"context"
 	reference "github.com/crossplane/crossplane-runtime/pkg/reference"
+	v1beta11 "github.com/dkb-bank/official-provider-aws/apis/firehose/v1beta1"
 	v1beta1 "github.com/dkb-bank/official-provider-aws/apis/iam/v1beta1"
 	errors "github.com/pkg/errors"
 	resource "github.com/upbound/upjet/pkg/resource"
@@ -79,6 +80,24 @@ func (mg *EventDestination) ResolveReferences(ctx context.Context, c client.Read
 		}
 		mg.Spec.ForProvider.KinesisDestination[i3].RoleArn = reference.ToPtrValue(rsp.ResolvedValue)
 		mg.Spec.ForProvider.KinesisDestination[i3].RoleArnRef = rsp.ResolvedReference
+
+	}
+	for i3 := 0; i3 < len(mg.Spec.ForProvider.KinesisDestination); i3++ {
+		rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
+			CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.KinesisDestination[i3].StreamArn),
+			Extract:      resource.ExtractParamPath("arn", false),
+			Reference:    mg.Spec.ForProvider.KinesisDestination[i3].StreamArnRef,
+			Selector:     mg.Spec.ForProvider.KinesisDestination[i3].StreamArnSelector,
+			To: reference.To{
+				List:    &v1beta11.DeliveryStreamList{},
+				Managed: &v1beta11.DeliveryStream{},
+			},
+		})
+		if err != nil {
+			return errors.Wrap(err, "mg.Spec.ForProvider.KinesisDestination[i3].StreamArn")
+		}
+		mg.Spec.ForProvider.KinesisDestination[i3].StreamArn = reference.ToPtrValue(rsp.ResolvedValue)
+		mg.Spec.ForProvider.KinesisDestination[i3].StreamArnRef = rsp.ResolvedReference
 
 	}
 

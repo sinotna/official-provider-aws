@@ -53,6 +53,7 @@ import (
 	lblistenerrule "github.com/dkb-bank/official-provider-aws/internal/controller/elbv2/lblistenerrule"
 	lbtargetgroup "github.com/dkb-bank/official-provider-aws/internal/controller/elbv2/lbtargetgroup"
 	lbtargetgroupattachment "github.com/dkb-bank/official-provider-aws/internal/controller/elbv2/lbtargetgroupattachment"
+	deliverystream "github.com/dkb-bank/official-provider-aws/internal/controller/firehose/deliverystream"
 	roleassociation "github.com/dkb-bank/official-provider-aws/internal/controller/grafana/roleassociation"
 	workspace "github.com/dkb-bank/official-provider-aws/internal/controller/grafana/workspace"
 	workspacesamlconfiguration "github.com/dkb-bank/official-provider-aws/internal/controller/grafana/workspacesamlconfiguration"
@@ -78,6 +79,12 @@ import (
 	userpolicyattachment "github.com/dkb-bank/official-provider-aws/internal/controller/iam/userpolicyattachment"
 	usersshkey "github.com/dkb-bank/official-provider-aws/internal/controller/iam/usersshkey"
 	virtualmfadevice "github.com/dkb-bank/official-provider-aws/internal/controller/iam/virtualmfadevice"
+	streamkinesis "github.com/dkb-bank/official-provider-aws/internal/controller/kinesis/stream"
+	streamconsumer "github.com/dkb-bank/official-provider-aws/internal/controller/kinesis/streamconsumer"
+	application "github.com/dkb-bank/official-provider-aws/internal/controller/kinesisanalytics/application"
+	applicationkinesisanalyticsv2 "github.com/dkb-bank/official-provider-aws/internal/controller/kinesisanalyticsv2/application"
+	applicationsnapshot "github.com/dkb-bank/official-provider-aws/internal/controller/kinesisanalyticsv2/applicationsnapshot"
+	streamkinesisvideo "github.com/dkb-bank/official-provider-aws/internal/controller/kinesisvideo/stream"
 	alias "github.com/dkb-bank/official-provider-aws/internal/controller/kms/alias"
 	ciphertext "github.com/dkb-bank/official-provider-aws/internal/controller/kms/ciphertext"
 	externalkey "github.com/dkb-bank/official-provider-aws/internal/controller/kms/externalkey"
@@ -89,6 +96,29 @@ import (
 	firewallpolicy "github.com/dkb-bank/official-provider-aws/internal/controller/networkfirewall/firewallpolicy"
 	rulegroup "github.com/dkb-bank/official-provider-aws/internal/controller/networkfirewall/rulegroup"
 	providerconfig "github.com/dkb-bank/official-provider-aws/internal/controller/providerconfig"
+	bucket "github.com/dkb-bank/official-provider-aws/internal/controller/s3/bucket"
+	bucketaccelerateconfiguration "github.com/dkb-bank/official-provider-aws/internal/controller/s3/bucketaccelerateconfiguration"
+	bucketacl "github.com/dkb-bank/official-provider-aws/internal/controller/s3/bucketacl"
+	bucketanalyticsconfiguration "github.com/dkb-bank/official-provider-aws/internal/controller/s3/bucketanalyticsconfiguration"
+	bucketcorsconfiguration "github.com/dkb-bank/official-provider-aws/internal/controller/s3/bucketcorsconfiguration"
+	bucketintelligenttieringconfiguration "github.com/dkb-bank/official-provider-aws/internal/controller/s3/bucketintelligenttieringconfiguration"
+	bucketinventory "github.com/dkb-bank/official-provider-aws/internal/controller/s3/bucketinventory"
+	bucketlifecycleconfiguration "github.com/dkb-bank/official-provider-aws/internal/controller/s3/bucketlifecycleconfiguration"
+	bucketlogging "github.com/dkb-bank/official-provider-aws/internal/controller/s3/bucketlogging"
+	bucketmetric "github.com/dkb-bank/official-provider-aws/internal/controller/s3/bucketmetric"
+	bucketnotification "github.com/dkb-bank/official-provider-aws/internal/controller/s3/bucketnotification"
+	bucketobject "github.com/dkb-bank/official-provider-aws/internal/controller/s3/bucketobject"
+	bucketobjectlockconfiguration "github.com/dkb-bank/official-provider-aws/internal/controller/s3/bucketobjectlockconfiguration"
+	bucketownershipcontrols "github.com/dkb-bank/official-provider-aws/internal/controller/s3/bucketownershipcontrols"
+	bucketpolicy "github.com/dkb-bank/official-provider-aws/internal/controller/s3/bucketpolicy"
+	bucketpublicaccessblock "github.com/dkb-bank/official-provider-aws/internal/controller/s3/bucketpublicaccessblock"
+	bucketreplicationconfiguration "github.com/dkb-bank/official-provider-aws/internal/controller/s3/bucketreplicationconfiguration"
+	bucketrequestpaymentconfiguration "github.com/dkb-bank/official-provider-aws/internal/controller/s3/bucketrequestpaymentconfiguration"
+	bucketserversideencryptionconfiguration "github.com/dkb-bank/official-provider-aws/internal/controller/s3/bucketserversideencryptionconfiguration"
+	bucketversioning "github.com/dkb-bank/official-provider-aws/internal/controller/s3/bucketversioning"
+	bucketwebsiteconfiguration "github.com/dkb-bank/official-provider-aws/internal/controller/s3/bucketwebsiteconfiguration"
+	object "github.com/dkb-bank/official-provider-aws/internal/controller/s3/object"
+	objectcopy "github.com/dkb-bank/official-provider-aws/internal/controller/s3/objectcopy"
 	activereceiptruleset "github.com/dkb-bank/official-provider-aws/internal/controller/ses/activereceiptruleset"
 	configurationset "github.com/dkb-bank/official-provider-aws/internal/controller/ses/configurationset"
 	domaindkim "github.com/dkb-bank/official-provider-aws/internal/controller/ses/domaindkim"
@@ -102,6 +132,7 @@ import (
 	receiptrule "github.com/dkb-bank/official-provider-aws/internal/controller/ses/receiptrule"
 	receiptruleset "github.com/dkb-bank/official-provider-aws/internal/controller/ses/receiptruleset"
 	template "github.com/dkb-bank/official-provider-aws/internal/controller/ses/template"
+	resourcedatasync "github.com/dkb-bank/official-provider-aws/internal/controller/ssm/resourcedatasync"
 )
 
 // Setup creates all controllers with the supplied logger and adds them to
@@ -152,6 +183,7 @@ func Setup(mgr ctrl.Manager, o controller.Options) error {
 		lblistenerrule.Setup,
 		lbtargetgroup.Setup,
 		lbtargetgroupattachment.Setup,
+		deliverystream.Setup,
 		roleassociation.Setup,
 		workspace.Setup,
 		workspacesamlconfiguration.Setup,
@@ -177,6 +209,12 @@ func Setup(mgr ctrl.Manager, o controller.Options) error {
 		userpolicyattachment.Setup,
 		usersshkey.Setup,
 		virtualmfadevice.Setup,
+		streamkinesis.Setup,
+		streamconsumer.Setup,
+		application.Setup,
+		applicationkinesisanalyticsv2.Setup,
+		applicationsnapshot.Setup,
+		streamkinesisvideo.Setup,
 		alias.Setup,
 		ciphertext.Setup,
 		externalkey.Setup,
@@ -188,6 +226,29 @@ func Setup(mgr ctrl.Manager, o controller.Options) error {
 		firewallpolicy.Setup,
 		rulegroup.Setup,
 		providerconfig.Setup,
+		bucket.Setup,
+		bucketaccelerateconfiguration.Setup,
+		bucketacl.Setup,
+		bucketanalyticsconfiguration.Setup,
+		bucketcorsconfiguration.Setup,
+		bucketintelligenttieringconfiguration.Setup,
+		bucketinventory.Setup,
+		bucketlifecycleconfiguration.Setup,
+		bucketlogging.Setup,
+		bucketmetric.Setup,
+		bucketnotification.Setup,
+		bucketobject.Setup,
+		bucketobjectlockconfiguration.Setup,
+		bucketownershipcontrols.Setup,
+		bucketpolicy.Setup,
+		bucketpublicaccessblock.Setup,
+		bucketreplicationconfiguration.Setup,
+		bucketrequestpaymentconfiguration.Setup,
+		bucketserversideencryptionconfiguration.Setup,
+		bucketversioning.Setup,
+		bucketwebsiteconfiguration.Setup,
+		object.Setup,
+		objectcopy.Setup,
 		activereceiptruleset.Setup,
 		configurationset.Setup,
 		domaindkim.Setup,
@@ -201,6 +262,7 @@ func Setup(mgr ctrl.Manager, o controller.Options) error {
 		receiptrule.Setup,
 		receiptruleset.Setup,
 		template.Setup,
+		resourcedatasync.Setup,
 	} {
 		if err := setup(mgr, o); err != nil {
 			return err

@@ -11,14 +11,17 @@ import (
 	"github.com/upbound/upjet/pkg/config"
 	"github.com/upbound/upjet/pkg/registry/reference"
 
-	"github.com/dkb-bank/official-provider-aws/config/ec2"
-	"github.com/dkb-bank/official-provider-aws/config/grafana"
-
 	"github.com/dkb-bank/official-provider-aws/config/cloudwatchlogs"
 	"github.com/dkb-bank/official-provider-aws/config/directconnect"
+	"github.com/dkb-bank/official-provider-aws/config/ec2"
 	"github.com/dkb-bank/official-provider-aws/config/elbv2"
+	"github.com/dkb-bank/official-provider-aws/config/grafana"
 	"github.com/dkb-bank/official-provider-aws/config/iam"
+	"github.com/dkb-bank/official-provider-aws/config/kinesis"
+	"github.com/dkb-bank/official-provider-aws/config/kinesisanalytics"
+	kinesisanalytics2 "github.com/dkb-bank/official-provider-aws/config/kinesisanalyticsv2"
 	"github.com/dkb-bank/official-provider-aws/config/kms"
+	"github.com/dkb-bank/official-provider-aws/config/s3"
 )
 
 var (
@@ -128,9 +131,9 @@ func GetProvider() *config.Provider {
 		grafana.Configure,
 		iam.Configure,
 		// kafka.Configure,
-		// kinesis.Configure,
-		// kinesisanalytics.Configure,
-		// kinesisanalytics2.Configure,
+		kinesis.Configure,
+		kinesisanalytics.Configure,
+		kinesisanalytics2.Configure,
 		kms.Configure,
 		// lakeformation.Configure,
 		// lambda.Configure,
@@ -143,7 +146,7 @@ func GetProvider() *config.Provider {
 		// route53.Configure,
 		// route53resolver.Configure,
 		// route53recoverycontrolconfig.Configure,
-		// s3.Configure,
+		s3.Configure,
 		// secretsmanager.Configure,
 		// servicecatalog.Configure,
 		// organization.Configure,
