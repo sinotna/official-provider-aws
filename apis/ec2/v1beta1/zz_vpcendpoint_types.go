@@ -61,18 +61,8 @@ type VPCEndpointObservation struct {
 	// Whether or not the VPC Endpoint is being managed by its service - true or false.
 	RequesterManaged *bool `json:"requesterManaged,omitempty" tf:"requester_managed,omitempty"`
 
-	// One or more route table IDs. Applicable for endpoints of type Gateway.
-	RouteTableIds []*string `json:"routeTableIds,omitempty" tf:"route_table_ids,omitempty"`
-
-	// The ID of one or more security groups to associate with the network interface. Applicable for endpoints of type Interface.
-	// If no security groups are specified, the VPC's default security group is associated with the endpoint.
-	SecurityGroupIds []*string `json:"securityGroupIds,omitempty" tf:"security_group_ids,omitempty"`
-
 	// The state of the VPC endpoint.
 	State *string `json:"state,omitempty" tf:"state,omitempty"`
-
-	// The ID of one or more subnets in which to create a network interface for the endpoint. Applicable for endpoints of type GatewayLoadBalancer and Interface.
-	SubnetIds []*string `json:"subnetIds,omitempty" tf:"subnet_ids,omitempty"`
 
 	// A map of tags assigned to the resource, including those inherited from the provider default_tags configuration block.
 	TagsAll map[string]*string `json:"tagsAll,omitempty" tf:"tags_all,omitempty"`
@@ -106,9 +96,44 @@ type VPCEndpointParameters struct {
 	// +kubebuilder:validation:Required
 	Region *string `json:"region" tf:"-"`
 
+	// One or more route table IDs. Applicable for endpoints of type Gateway.
+	// +kubebuilder:validation:Optional
+	RouteTableIds []*string `json:"routeTableIds,omitempty" tf:"route_table_ids,omitempty"`
+
+	// References to SecurityGroup in ec2 to populate securityGroupIds.
+	// +kubebuilder:validation:Optional
+	SecurityGroupIDRefs []v1.Reference `json:"securityGroupIdRefs,omitempty" tf:"-"`
+
+	// Selector for a list of SecurityGroup in ec2 to populate securityGroupIds.
+	// +kubebuilder:validation:Optional
+	SecurityGroupIDSelector *v1.Selector `json:"securityGroupIdSelector,omitempty" tf:"-"`
+
+	// The ID of one or more security groups to associate with the network interface. Applicable for endpoints of type Interface.
+	// If no security groups are specified, the VPC's default security group is associated with the endpoint.
+	// +crossplane:generate:reference:type=github.com/dkb-bank/official-provider-aws/apis/ec2/v1beta1.SecurityGroup
+	// +crossplane:generate:reference:refFieldName=SecurityGroupIDRefs
+	// +crossplane:generate:reference:selectorFieldName=SecurityGroupIDSelector
+	// +kubebuilder:validation:Optional
+	SecurityGroupIds []*string `json:"securityGroupIds,omitempty" tf:"security_group_ids,omitempty"`
+
 	// The service name. For AWS services the service name is usually in the form com.amazonaws.<region>.<service> (the SageMaker Notebook service is an exception to this rule, the service name is in the form aws.sagemaker.<region>.notebook).
 	// +kubebuilder:validation:Required
 	ServiceName *string `json:"serviceName" tf:"service_name,omitempty"`
+
+	// References to Subnet in ec2 to populate subnetIds.
+	// +kubebuilder:validation:Optional
+	SubnetIDRefs []v1.Reference `json:"subnetIdRefs,omitempty" tf:"-"`
+
+	// Selector for a list of Subnet in ec2 to populate subnetIds.
+	// +kubebuilder:validation:Optional
+	SubnetIDSelector *v1.Selector `json:"subnetIdSelector,omitempty" tf:"-"`
+
+	// The ID of one or more subnets in which to create a network interface for the endpoint. Applicable for endpoints of type GatewayLoadBalancer and Interface.
+	// +crossplane:generate:reference:type=github.com/dkb-bank/official-provider-aws/apis/ec2/v1beta1.Subnet
+	// +crossplane:generate:reference:refFieldName=SubnetIDRefs
+	// +crossplane:generate:reference:selectorFieldName=SubnetIDSelector
+	// +kubebuilder:validation:Optional
+	SubnetIds []*string `json:"subnetIds,omitempty" tf:"subnet_ids,omitempty"`
 
 	// Key-value map of resource tags.
 	// +kubebuilder:validation:Optional
