@@ -8,10 +8,11 @@ import (
 	// Note(ezgidemirel): we are importing this to embed provider schema document
 	_ "embed"
 
-	"github.com/dkb-bank/official-provider-aws/config/ec2"
-	"github.com/dkb-bank/official-provider-aws/config/grafana"
 	"github.com/upbound/upjet/pkg/config"
 	"github.com/upbound/upjet/pkg/registry/reference"
+
+	"github.com/dkb-bank/official-provider-aws/config/ec2"
+	"github.com/dkb-bank/official-provider-aws/config/grafana"
 
 	"github.com/dkb-bank/official-provider-aws/config/cloudwatchlogs"
 	"github.com/dkb-bank/official-provider-aws/config/directconnect"
