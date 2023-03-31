@@ -17,15 +17,27 @@ type AttachmentObservation struct {
 
 	// ID of the network interface.
 	AttachmentID *string `json:"attachmentId,omitempty" tf:"attachment_id,omitempty"`
-
-	// Integer to define the devices index.
-	DeviceIndex *float64 `json:"deviceIndex,omitempty" tf:"device_index,omitempty"`
-
-	// ID of the instance to attach to.
-	Instance *string `json:"instance,omitempty" tf:"instance,omitempty"`
 }
 
 type AttachmentParameters struct {
+
+	// Integer to define the devices index.
+	// +kubebuilder:validation:Required
+	DeviceIndex *float64 `json:"deviceIndex" tf:"device_index,omitempty"`
+
+	// ID of the instance to attach to.
+	// +crossplane:generate:reference:type=github.com/dkb-bank/official-provider-aws/apis/ec2/v1beta1.Instance
+	// +crossplane:generate:reference:extractor=github.com/upbound/upjet/pkg/resource.ExtractResourceID()
+	// +kubebuilder:validation:Optional
+	Instance *string `json:"instance,omitempty" tf:"instance,omitempty"`
+
+	// Reference to a Instance in ec2 to populate instance.
+	// +kubebuilder:validation:Optional
+	InstanceRef *v1.Reference `json:"instanceRef,omitempty" tf:"-"`
+
+	// Selector for a Instance in ec2 to populate instance.
+	// +kubebuilder:validation:Optional
+	InstanceSelector *v1.Selector `json:"instanceSelector,omitempty" tf:"-"`
 }
 
 type NetworkInterfaceObservation_2 struct {
@@ -34,6 +46,7 @@ type NetworkInterfaceObservation_2 struct {
 	Arn *string `json:"arn,omitempty" tf:"arn,omitempty"`
 
 	// Configuration block to define the attachment of the ENI. See Attachment below for more details!
+	// +kubebuilder:validation:Optional
 	Attachment []AttachmentObservation `json:"attachment,omitempty" tf:"attachment,omitempty"`
 
 	// ID of the network interface.
@@ -56,6 +69,10 @@ type NetworkInterfaceObservation_2 struct {
 }
 
 type NetworkInterfaceParameters_2 struct {
+
+	// Configuration block to define the attachment of the ENI. See Attachment below for more details!
+	// +kubebuilder:validation:Optional
+	Attachment []AttachmentParameters `json:"attachment,omitempty" tf:"attachment,omitempty"`
 
 	// Description for the network interface.
 	// +kubebuilder:validation:Optional
@@ -121,18 +138,7 @@ type NetworkInterfaceParameters_2 struct {
 	// +kubebuilder:validation:Required
 	Region *string `json:"region" tf:"-"`
 
-	// References to SecurityGroup to populate securityGroups.
-	// +kubebuilder:validation:Optional
-	SecurityGroupRefs []v1.Reference `json:"securityGroupRefs,omitempty" tf:"-"`
-
-	// Selector for a list of SecurityGroup to populate securityGroups.
-	// +kubebuilder:validation:Optional
-	SecurityGroupSelector *v1.Selector `json:"securityGroupSelector,omitempty" tf:"-"`
-
 	// List of security group IDs to assign to the ENI.
-	// +crossplane:generate:reference:type=SecurityGroup
-	// +crossplane:generate:reference:refFieldName=SecurityGroupRefs
-	// +crossplane:generate:reference:selectorFieldName=SecurityGroupSelector
 	// +kubebuilder:validation:Optional
 	SecurityGroups []*string `json:"securityGroups,omitempty" tf:"security_groups,omitempty"`
 
@@ -141,15 +147,15 @@ type NetworkInterfaceParameters_2 struct {
 	SourceDestCheck *bool `json:"sourceDestCheck,omitempty" tf:"source_dest_check,omitempty"`
 
 	// Subnet ID to create the ENI in.
-	// +crossplane:generate:reference:type=Subnet
+	// +crossplane:generate:reference:type=github.com/dkb-bank/official-provider-aws/apis/ec2/v1beta1.Subnet
 	// +kubebuilder:validation:Optional
 	SubnetID *string `json:"subnetId,omitempty" tf:"subnet_id,omitempty"`
 
-	// Reference to a Subnet to populate subnetId.
+	// Reference to a Subnet in ec2 to populate subnetId.
 	// +kubebuilder:validation:Optional
 	SubnetIDRef *v1.Reference `json:"subnetIdRef,omitempty" tf:"-"`
 
-	// Selector for a Subnet to populate subnetId.
+	// Selector for a Subnet in ec2 to populate subnetId.
 	// +kubebuilder:validation:Optional
 	SubnetIDSelector *v1.Selector `json:"subnetIdSelector,omitempty" tf:"-"`
 

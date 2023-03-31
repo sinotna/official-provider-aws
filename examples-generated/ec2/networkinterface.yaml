@@ -8,11 +8,16 @@ metadata:
   name: test
 spec:
   forProvider:
+    attachment:
+    - deviceIndex: 1
+      instanceSelector:
+        matchLabels:
+          testing.upbound.io/example-name: test
     privateIps:
     - 10.0.0.50
     region: us-west-1
-    securityGroupRefs:
-    - name: web
+    securityGroups:
+    - ${aws_security_group.web.id}
     subnetIdSelector:
       matchLabels:
         testing.upbound.io/example-name: public_a
