@@ -8,7 +8,8 @@ package v1beta1
 import (
 	"context"
 	reference "github.com/crossplane/crossplane-runtime/pkg/reference"
-	v1beta1 "github.com/dkb-bank/official-provider-aws/apis/ec2/v1beta1"
+	v1beta11 "github.com/dkb-bank/official-provider-aws/apis/ec2/v1beta1"
+	v1beta1 "github.com/dkb-bank/official-provider-aws/apis/s3/v1beta1"
 	errors "github.com/pkg/errors"
 	resource "github.com/upbound/upjet/pkg/resource"
 	client "sigs.k8s.io/controller-runtime/pkg/client"
@@ -21,6 +22,24 @@ func (mg *LB) ResolveReferences(ctx context.Context, c client.Reader) error {
 	var rsp reference.ResolutionResponse
 	var err error
 
+	for i3 := 0; i3 < len(mg.Spec.ForProvider.AccessLogs); i3++ {
+		rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
+			CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.AccessLogs[i3].Bucket),
+			Extract:      resource.ExtractResourceID(),
+			Reference:    mg.Spec.ForProvider.AccessLogs[i3].BucketRef,
+			Selector:     mg.Spec.ForProvider.AccessLogs[i3].BucketSelector,
+			To: reference.To{
+				List:    &v1beta1.BucketList{},
+				Managed: &v1beta1.Bucket{},
+			},
+		})
+		if err != nil {
+			return errors.Wrap(err, "mg.Spec.ForProvider.AccessLogs[i3].Bucket")
+		}
+		mg.Spec.ForProvider.AccessLogs[i3].Bucket = reference.ToPtrValue(rsp.ResolvedValue)
+		mg.Spec.ForProvider.AccessLogs[i3].BucketRef = rsp.ResolvedReference
+
+	}
 	for i3 := 0; i3 < len(mg.Spec.ForProvider.SubnetMapping); i3++ {
 		rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
 			CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.SubnetMapping[i3].SubnetID),
@@ -28,8 +47,8 @@ func (mg *LB) ResolveReferences(ctx context.Context, c client.Reader) error {
 			Reference:    mg.Spec.ForProvider.SubnetMapping[i3].SubnetIDRef,
 			Selector:     mg.Spec.ForProvider.SubnetMapping[i3].SubnetIDSelector,
 			To: reference.To{
-				List:    &v1beta1.SubnetList{},
-				Managed: &v1beta1.Subnet{},
+				List:    &v1beta11.SubnetList{},
+				Managed: &v1beta11.Subnet{},
 			},
 		})
 		if err != nil {
@@ -166,8 +185,8 @@ func (mg *LBTargetGroup) ResolveReferences(ctx context.Context, c client.Reader)
 		Reference:    mg.Spec.ForProvider.VPCIDRef,
 		Selector:     mg.Spec.ForProvider.VPCIDSelector,
 		To: reference.To{
-			List:    &v1beta1.VPCList{},
-			Managed: &v1beta1.VPC{},
+			List:    &v1beta11.VPCList{},
+			Managed: &v1beta11.VPC{},
 		},
 	})
 	if err != nil {
@@ -208,8 +227,8 @@ func (mg *LBTargetGroupAttachment) ResolveReferences(ctx context.Context, c clie
 		Reference:    mg.Spec.ForProvider.TargetIDRef,
 		Selector:     mg.Spec.ForProvider.TargetIDSelector,
 		To: reference.To{
-			List:    &v1beta1.InstanceList{},
-			Managed: &v1beta1.Instance{},
+			List:    &v1beta11.InstanceList{},
+			Managed: &v1beta11.Instance{},
 		},
 	})
 	if err != nil {

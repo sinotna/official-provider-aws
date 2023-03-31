@@ -12,7 +12,9 @@ spec:
     roleArnSelector:
       matchLabels:
         testing.upbound.io/example-name: iam_for_cloudwatch
-    targetArn: ${aws_kinesis_stream.kinesis_for_cloudwatch.arn}
+    targetArnSelector:
+      matchLabels:
+        testing.upbound.io/example-name: kinesis_for_cloudwatch
 
 ---
 
