@@ -19,8 +19,18 @@ type AccessLogsObservation struct {
 type AccessLogsParameters struct {
 
 	// The S3 bucket name to store the logs in.
-	// +kubebuilder:validation:Required
-	Bucket *string `json:"bucket" tf:"bucket,omitempty"`
+	// +crossplane:generate:reference:type=github.com/dkb-bank/official-provider-aws/apis/s3/v1beta1.Bucket
+	// +crossplane:generate:reference:extractor=github.com/upbound/upjet/pkg/resource.ExtractResourceID()
+	// +kubebuilder:validation:Optional
+	Bucket *string `json:"bucket,omitempty" tf:"bucket,omitempty"`
+
+	// Reference to a Bucket in s3 to populate bucket.
+	// +kubebuilder:validation:Optional
+	BucketRef *v1.Reference `json:"bucketRef,omitempty" tf:"-"`
+
+	// Selector for a Bucket in s3 to populate bucket.
+	// +kubebuilder:validation:Optional
+	BucketSelector *v1.Selector `json:"bucketSelector,omitempty" tf:"-"`
 
 	// Boolean to enable / disable access_logs. Defaults to false, even when bucket is specified.
 	// +kubebuilder:validation:Optional

@@ -9,7 +9,9 @@ metadata:
 spec:
   forProvider:
     accessLogs:
-    - bucket: ${aws_s3_bucket.lb_logs.id}
+    - bucketSelector:
+        matchLabels:
+          testing.upbound.io/example-name: lb_logs
       enabled: true
       prefix: test-lb
     enableDeletionProtection: true

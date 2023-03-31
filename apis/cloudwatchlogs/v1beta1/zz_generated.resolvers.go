@@ -9,7 +9,8 @@ import (
 	"context"
 	reference "github.com/crossplane/crossplane-runtime/pkg/reference"
 	v1beta1 "github.com/dkb-bank/official-provider-aws/apis/iam/v1beta1"
-	v1beta11 "github.com/dkb-bank/official-provider-aws/apis/kms/v1beta1"
+	v1beta11 "github.com/dkb-bank/official-provider-aws/apis/kinesis/v1beta1"
+	v1beta12 "github.com/dkb-bank/official-provider-aws/apis/kms/v1beta1"
 	errors "github.com/pkg/errors"
 	common "github.com/upbound/provider-aws/config/common"
 	client "sigs.k8s.io/controller-runtime/pkg/client"
@@ -38,6 +39,22 @@ func (mg *Destination) ResolveReferences(ctx context.Context, c client.Reader) e
 	mg.Spec.ForProvider.RoleArn = reference.ToPtrValue(rsp.ResolvedValue)
 	mg.Spec.ForProvider.RoleArnRef = rsp.ResolvedReference
 
+	rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
+		CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.TargetArn),
+		Extract:      common.TerraformID(),
+		Reference:    mg.Spec.ForProvider.TargetArnRef,
+		Selector:     mg.Spec.ForProvider.TargetArnSelector,
+		To: reference.To{
+			List:    &v1beta11.StreamList{},
+			Managed: &v1beta11.Stream{},
+		},
+	})
+	if err != nil {
+		return errors.Wrap(err, "mg.Spec.ForProvider.TargetArn")
+	}
+	mg.Spec.ForProvider.TargetArn = reference.ToPtrValue(rsp.ResolvedValue)
+	mg.Spec.ForProvider.TargetArnRef = rsp.ResolvedReference
+
 	return nil
 }
 
@@ -54,8 +71,8 @@ func (mg *Group) ResolveReferences(ctx context.Context, c client.Reader) error {
 		Reference:    mg.Spec.ForProvider.KMSKeyIDRef,
 		Selector:     mg.Spec.ForProvider.KMSKeyIDSelector,
 		To: reference.To{
-			List:    &v1beta11.KeyList{},
-			Managed: &v1beta11.Key{},
+			List:    &v1beta12.KeyList{},
+			Managed: &v1beta12.Key{},
 		},
 	})
 	if err != nil {
@@ -125,6 +142,22 @@ func (mg *SubscriptionFilter) ResolveReferences(ctx context.Context, c client.Re
 
 	var rsp reference.ResolutionResponse
 	var err error
+
+	rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
+		CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.DestinationArn),
+		Extract:      common.TerraformID(),
+		Reference:    mg.Spec.ForProvider.DestinationArnRef,
+		Selector:     mg.Spec.ForProvider.DestinationArnSelector,
+		To: reference.To{
+			List:    &v1beta11.StreamList{},
+			Managed: &v1beta11.Stream{},
+		},
+	})
+	if err != nil {
+		return errors.Wrap(err, "mg.Spec.ForProvider.DestinationArn")
+	}
+	mg.Spec.ForProvider.DestinationArn = reference.ToPtrValue(rsp.ResolvedValue)
+	mg.Spec.ForProvider.DestinationArnRef = rsp.ResolvedReference
 
 	rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
 		CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.RoleArn),

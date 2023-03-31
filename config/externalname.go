@@ -647,58 +647,58 @@ var ExternalNameConfigs = map[string]config.ExternalName{
 	// // rslvr-rrassoc-97242eaf88example
 	// "aws_route53_resolver_rule_association": config.IdentifierFromProvider,
 
-	// // s3
-	// //
-	// // S3 bucket can be imported using the bucket
-	// "aws_s3_bucket": config.ParameterAsIdentifier("bucket"),
-	// // the S3 bucket accelerate configuration resource should be imported using the bucket
-	// "aws_s3_bucket_object_lock_configuration": config.IdentifierFromProvider,
-	// // the S3 bucket accelerate configuration resource should be imported using the bucket
-	// "aws_s3_bucket_accelerate_configuration": config.IdentifierFromProvider,
-	// // the S3 bucket ACL resource should be imported using the bucket
-	// "aws_s3_bucket_acl": config.IdentifierFromProvider,
-	// // S3 bucket analytics configurations can be imported using bucket:analytics
-	// "aws_s3_bucket_analytics_configuration": FormattedIdentifierFromProvider(":", "bucket", "name"),
-	// // The S3 bucket CORS configuration resource should be imported using the bucket
-	// "aws_s3_bucket_cors_configuration": config.IdentifierFromProvider,
-	// // S3 bucket intelligent tiering configurations can be imported using bucket:name
-	// // $ terraform import aws_s3_bucket_intelligent_tiering_configuration.my-bucket-entire-bucket my-bucket:EntireBucket
-	// "aws_s3_bucket_intelligent_tiering_configuration": FormattedIdentifierFromProvider(":", "bucket", "name"),
-	// // S3 bucket inventory configurations can be imported using bucket:inventory
-	// // $ terraform import aws_s3_bucket_inventory.my-bucket-entire-bucket my-bucket:EntireBucket
-	// "aws_s3_bucket_inventory": FormattedIdentifierFromProvider(":", "bucket", "name"),
-	// // The S3 bucket lifecycle configuration resource should be imported using the bucket
-	// "aws_s3_bucket_lifecycle_configuration": config.IdentifierFromProvider,
-	// // The S3 bucket logging resource should be imported using the bucket
-	// "aws_s3_bucket_logging": config.IdentifierFromProvider,
-	// // S3 bucket metric configurations can be imported using bucket:metric
-	// "aws_s3_bucket_metric": FormattedIdentifierFromProvider(":", "bucket", "name"),
-	// // S3 bucket notification can be imported using the bucket
-	// "aws_s3_bucket_notification": config.IdentifierFromProvider,
-	// // Objects can be imported using the id. The id is the bucket name and the key together
-	// "aws_s3_bucket_object": config.IdentifierFromProvider,
-	// // S3 Bucket Ownership Controls can be imported using S3 Bucket name
-	// "aws_s3_bucket_ownership_controls": config.IdentifierFromProvider,
-	// // S3 bucket policies can be imported using the bucket name
-	// "aws_s3_bucket_policy": config.IdentifierFromProvider,
-	// // aws_s3_bucket_public_access_block can be imported by using the bucket name
-	// "aws_s3_bucket_public_access_block": config.IdentifierFromProvider,
-	// // S3 bucket replication configuration can be imported using the bucket
-	// "aws_s3_bucket_replication_configuration": config.IdentifierFromProvider,
-	// // The S3 bucket request payment configuration resource should be imported using the bucket
-	// "aws_s3_bucket_request_payment_configuration": config.IdentifierFromProvider,
-	// // The S3 server-side encryption configuration resource should be imported using the bucket
-	// "aws_s3_bucket_server_side_encryption_configuration": config.IdentifierFromProvider,
-	// // The S3 bucket versioning resource should be imported using the bucket
-	// "aws_s3_bucket_versioning": config.IdentifierFromProvider,
-	// // The S3 bucket website configuration resource should be imported using the bucket
-	// "aws_s3_bucket_website_configuration": config.IdentifierFromProvider,
-	// // Objects can be imported using the id. The id is the bucket name and the key together
-	// // $ terraform import aws_s3_object.object some-bucket-name/some/key.txt
-	// "aws_s3_object": FormattedIdentifierFromProvider("/", "bucket", "key"),
-	// // No import
-	// // TODO: For now API is not normalized. While testing resource we can check the actual ID and normalize the API.
-	// "aws_s3_object_copy": config.IdentifierFromProvider,
+	// s3
+	//
+	// S3 bucket can be imported using the bucket
+	"aws_s3_bucket": config.ParameterAsIdentifier("bucket"),
+	// the S3 bucket accelerate configuration resource should be imported using the bucket
+	"aws_s3_bucket_object_lock_configuration": config.IdentifierFromProvider,
+	// the S3 bucket accelerate configuration resource should be imported using the bucket
+	"aws_s3_bucket_accelerate_configuration": config.IdentifierFromProvider,
+	// the S3 bucket ACL resource should be imported using the bucket
+	"aws_s3_bucket_acl": config.IdentifierFromProvider,
+	// S3 bucket analytics configurations can be imported using bucket:analytics
+	"aws_s3_bucket_analytics_configuration": FormattedIdentifierFromProvider(":", "bucket", "name"),
+	// The S3 bucket CORS configuration resource should be imported using the bucket
+	"aws_s3_bucket_cors_configuration": config.IdentifierFromProvider,
+	// S3 bucket intelligent tiering configurations can be imported using bucket:name
+	// $ terraform import aws_s3_bucket_intelligent_tiering_configuration.my-bucket-entire-bucket my-bucket:EntireBucket
+	"aws_s3_bucket_intelligent_tiering_configuration": FormattedIdentifierFromProvider(":", "bucket", "name"),
+	// S3 bucket inventory configurations can be imported using bucket:inventory
+	// $ terraform import aws_s3_bucket_inventory.my-bucket-entire-bucket my-bucket:EntireBucket
+	"aws_s3_bucket_inventory": FormattedIdentifierFromProvider(":", "bucket", "name"),
+	// The S3 bucket lifecycle configuration resource should be imported using the bucket
+	"aws_s3_bucket_lifecycle_configuration": config.IdentifierFromProvider,
+	// The S3 bucket logging resource should be imported using the bucket
+	"aws_s3_bucket_logging": config.IdentifierFromProvider,
+	// S3 bucket metric configurations can be imported using bucket:metric
+	"aws_s3_bucket_metric": FormattedIdentifierFromProvider(":", "bucket", "name"),
+	// S3 bucket notification can be imported using the bucket
+	"aws_s3_bucket_notification": config.IdentifierFromProvider,
+	// Objects can be imported using the id. The id is the bucket name and the key together
+	"aws_s3_bucket_object": config.IdentifierFromProvider,
+	// S3 Bucket Ownership Controls can be imported using S3 Bucket name
+	"aws_s3_bucket_ownership_controls": config.IdentifierFromProvider,
+	// S3 bucket policies can be imported using the bucket name
+	"aws_s3_bucket_policy": config.IdentifierFromProvider,
+	// aws_s3_bucket_public_access_block can be imported by using the bucket name
+	"aws_s3_bucket_public_access_block": config.IdentifierFromProvider,
+	// S3 bucket replication configuration can be imported using the bucket
+	"aws_s3_bucket_replication_configuration": config.IdentifierFromProvider,
+	// The S3 bucket request payment configuration resource should be imported using the bucket
+	"aws_s3_bucket_request_payment_configuration": config.IdentifierFromProvider,
+	// The S3 server-side encryption configuration resource should be imported using the bucket
+	"aws_s3_bucket_server_side_encryption_configuration": config.IdentifierFromProvider,
+	// The S3 bucket versioning resource should be imported using the bucket
+	"aws_s3_bucket_versioning": config.IdentifierFromProvider,
+	// The S3 bucket website configuration resource should be imported using the bucket
+	"aws_s3_bucket_website_configuration": config.IdentifierFromProvider,
+	// Objects can be imported using the id. The id is the bucket name and the key together
+	// $ terraform import aws_s3_object.object some-bucket-name/some/key.txt
+	"aws_s3_object": FormattedIdentifierFromProvider("/", "bucket", "key"),
+	// No import
+	// TODO: For now API is not normalized. While testing resource we can check the actual ID and normalize the API.
+	"aws_s3_object_copy": config.IdentifierFromProvider,
 
 	// // cloudfront
 	// //
@@ -865,35 +865,35 @@ var ExternalNameConfigs = map[string]config.ExternalName{
 	// // GameLift Scripts can be imported using the ID
 	// "aws_gamelift_script": config.IdentifierFromProvider,
 
-	// // kinesis
-	// //
-	// // Even though the documentation says the ID is name, it uses ARN..
-	// "aws_kinesis_stream": config.TemplatedStringAsIdentifier("name", " arn:aws:kinesis:{{ .setup.configuration.region }}:{{ .setup.client_metadata.account_id }}:stream/{{ .external_name }}"),
-	// // Kinesis Stream Consumers can be imported using the Amazon Resource Name (ARN)
-	// // that has a random substring.
-	// "aws_kinesis_stream_consumer": config.IdentifierFromProvider,
+	// kinesis
+	//
+	// Even though the documentation says the ID is name, it uses ARN..
+	"aws_kinesis_stream": config.TemplatedStringAsIdentifier("name", " arn:aws:kinesis:{{ .setup.configuration.region }}:{{ .setup.client_metadata.account_id }}:stream/{{ .external_name }}"),
+	// Kinesis Stream Consumers can be imported using the Amazon Resource Name (ARN)
+	// that has a random substring.
+	"aws_kinesis_stream_consumer": config.IdentifierFromProvider,
 
-	// // kinesisanalytics
-	// //
-	// "aws_kinesis_analytics_application": config.TemplatedStringAsIdentifier("name", "arn:aws:kinesisanalytics:{{ .setup.configuration.region }}:{{ .setup.client_metadata.account_id }}:application/{{ .external_name }}"),
+	// kinesisanalytics
+	//
+	"aws_kinesis_analytics_application": config.TemplatedStringAsIdentifier("name", "arn:aws:kinesisanalytics:{{ .setup.configuration.region }}:{{ .setup.client_metadata.account_id }}:application/{{ .external_name }}"),
 
-	// // kinesisanalyticsv2
-	// //
-	// "aws_kinesisanalyticsv2_application": config.TemplatedStringAsIdentifier("name", "arn:aws:kinesisanalytics:{{ .setup.configuration.region }}:{{ .setup.client_metadata.account_id }}:application/{{ .external_name }}"),
-	// // aws_kinesisanalyticsv2_application can be imported by using application_name together with snapshot_name
-	// // e.g. example-application/example-snapshot
-	// "aws_kinesisanalyticsv2_application_snapshot": FormattedIdentifierUserDefinedNameLast("snapshot_name", "/", "application_name"),
+	// kinesisanalyticsv2
+	//
+	"aws_kinesisanalyticsv2_application": config.TemplatedStringAsIdentifier("name", "arn:aws:kinesisanalytics:{{ .setup.configuration.region }}:{{ .setup.client_metadata.account_id }}:application/{{ .external_name }}"),
+	// aws_kinesisanalyticsv2_application can be imported by using application_name together with snapshot_name
+	// e.g. example-application/example-snapshot
+	"aws_kinesisanalyticsv2_application_snapshot": FormattedIdentifierUserDefinedNameLast("snapshot_name", "/", "application_name"),
 
-	// // kinesisvideo
-	// //
-	// // Kinesis Streams can be imported using the arn that has a random substring
-	// // in the end.
-	// // arn:aws:kinesisvideo:us-west-2:123456789012:stream/terraform-kinesis-test/1554978910975
-	// "aws_kinesis_video_stream": config.IdentifierFromProvider,
+	// kinesisvideo
+	//
+	// Kinesis Streams can be imported using the arn that has a random substring
+	// in the end.
+	// arn:aws:kinesisvideo:us-west-2:123456789012:stream/terraform-kinesis-test/1554978910975
+	"aws_kinesis_video_stream": config.IdentifierFromProvider,
 
-	// // firehose
-	// //
-	// "aws_kinesis_firehose_delivery_stream": config.TemplatedStringAsIdentifier("name", "arn:aws:firehose:{{ .setup.configuration.region }}:{{ .setup.client_metadata.account_id }}:deliverystream/{{ .external_name }}"),
+	// firehose
+	//
+	"aws_kinesis_firehose_delivery_stream": config.IdentifierFromProvider,
 
 	// // lakeformation
 	// //
@@ -1859,8 +1859,8 @@ var ExternalNameConfigs = map[string]config.ExternalName{
 	// "aws_ssm_maintenance_window_task": config.IdentifierFromProvider,
 	// // SSM Parameters can be imported using the parameter store name
 	// "aws_ssm_parameter": config.NameAsIdentifier,
-	// // SSM resource data sync can be imported using the name
-	// "aws_ssm_resource_data_sync": config.NameAsIdentifier,
+	// SSM resource data sync can be imported using the name
+	"aws_ssm_resource_data_sync": config.NameAsIdentifier,
 
 	// // emr
 	// //
