@@ -26,13 +26,13 @@ func Configure(p *config.Provider) {
 			SelectorFieldName: "SecurityGroupSelector",
 		}
 		r.References["root_block_device.kms_key_id"] = config.Reference{
-			Type: "github.com/upbound/provider-aws/apis/kms/v1beta1.Key",
+			Type: "github.com/dkb-bank/official-provider-aws/apis/kms/v1beta1.Key",
 		}
 		r.References["network_interface.network_interface_id"] = config.Reference{
 			Type: "NetworkInterface",
 		}
 		r.References["ebs_block_device.kms_key_id"] = config.Reference{
-			Type: "github.com/upbound/provider-aws/apis/kms/v1beta1.Key",
+			Type: "github.com/dkb-bank/official-provider-aws/apis/kms/v1beta1.Key",
 		}
 		r.LateInitializer = config.LateInitializer{
 			// NOTE(muvaf): These are ignored because they conflict with each other.

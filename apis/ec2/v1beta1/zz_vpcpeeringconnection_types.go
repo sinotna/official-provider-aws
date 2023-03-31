@@ -14,43 +14,49 @@ import (
 )
 
 type AccepterObservation struct {
-
-	// Allow a local linked EC2-Classic instance to communicate
-	// with instances in a peer VPC. This enables an outbound communication from the local ClassicLink connection
-	// to the remote VPC.
-	AllowClassicLinkToRemoteVPC *bool `json:"allowClassicLinkToRemoteVpc,omitempty" tf:"allow_classic_link_to_remote_vpc,omitempty"`
-
-	// Allow a local VPC to resolve public DNS hostnames to
-	// private IP addresses when queried from instances in the peer VPC.
-	AllowRemoteVPCDNSResolution *bool `json:"allowRemoteVpcDnsResolution,omitempty" tf:"allow_remote_vpc_dns_resolution,omitempty"`
-
-	// Allow a local VPC to communicate with a linked EC2-Classic
-	// instance in a peer VPC. This enables an outbound communication from the local VPC to the remote ClassicLink
-	// connection.
-	AllowVPCToRemoteClassicLink *bool `json:"allowVpcToRemoteClassicLink,omitempty" tf:"allow_vpc_to_remote_classic_link,omitempty"`
 }
 
 type AccepterParameters struct {
-}
-
-type RequesterObservation struct {
 
 	// Allow a local linked EC2-Classic instance to communicate
 	// with instances in a peer VPC. This enables an outbound communication from the local ClassicLink connection
 	// to the remote VPC.
+	// +kubebuilder:validation:Optional
 	AllowClassicLinkToRemoteVPC *bool `json:"allowClassicLinkToRemoteVpc,omitempty" tf:"allow_classic_link_to_remote_vpc,omitempty"`
 
 	// Allow a local VPC to resolve public DNS hostnames to
 	// private IP addresses when queried from instances in the peer VPC.
+	// +kubebuilder:validation:Optional
 	AllowRemoteVPCDNSResolution *bool `json:"allowRemoteVpcDnsResolution,omitempty" tf:"allow_remote_vpc_dns_resolution,omitempty"`
 
 	// Allow a local VPC to communicate with a linked EC2-Classic
 	// instance in a peer VPC. This enables an outbound communication from the local VPC to the remote ClassicLink
 	// connection.
+	// +kubebuilder:validation:Optional
 	AllowVPCToRemoteClassicLink *bool `json:"allowVpcToRemoteClassicLink,omitempty" tf:"allow_vpc_to_remote_classic_link,omitempty"`
 }
 
+type RequesterObservation struct {
+}
+
 type RequesterParameters struct {
+
+	// Allow a local linked EC2-Classic instance to communicate
+	// with instances in a peer VPC. This enables an outbound communication from the local ClassicLink connection
+	// to the remote VPC.
+	// +kubebuilder:validation:Optional
+	AllowClassicLinkToRemoteVPC *bool `json:"allowClassicLinkToRemoteVpc,omitempty" tf:"allow_classic_link_to_remote_vpc,omitempty"`
+
+	// Allow a local VPC to resolve public DNS hostnames to
+	// private IP addresses when queried from instances in the peer VPC.
+	// +kubebuilder:validation:Optional
+	AllowRemoteVPCDNSResolution *bool `json:"allowRemoteVpcDnsResolution,omitempty" tf:"allow_remote_vpc_dns_resolution,omitempty"`
+
+	// Allow a local VPC to communicate with a linked EC2-Classic
+	// instance in a peer VPC. This enables an outbound communication from the local VPC to the remote ClassicLink
+	// connection.
+	// +kubebuilder:validation:Optional
+	AllowVPCToRemoteClassicLink *bool `json:"allowVpcToRemoteClassicLink,omitempty" tf:"allow_vpc_to_remote_classic_link,omitempty"`
 }
 
 type VPCPeeringConnectionObservation struct {
@@ -58,22 +64,19 @@ type VPCPeeringConnectionObservation struct {
 	// The status of the VPC Peering Connection request.
 	AcceptStatus *string `json:"acceptStatus,omitempty" tf:"accept_status,omitempty"`
 
-	// An optional configuration block that allows for VPC Peering Connection options to be set for the VPC that accepts
-	// the peering connection (a maximum of one).
-	Accepter []AccepterObservation `json:"accepter,omitempty" tf:"accepter,omitempty"`
-
 	// The ID of the VPC Peering Connection.
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
-
-	// A optional configuration block that allows for VPC Peering Connection options to be set for the VPC that requests
-	// the peering connection (a maximum of one).
-	Requester []RequesterObservation `json:"requester,omitempty" tf:"requester,omitempty"`
 
 	// A map of tags assigned to the resource, including those inherited from the provider default_tags configuration block.
 	TagsAll map[string]*string `json:"tagsAll,omitempty" tf:"tags_all,omitempty"`
 }
 
 type VPCPeeringConnectionParameters struct {
+
+	// An optional configuration block that allows for VPC Peering Connection options to be set for the VPC that accepts
+	// the peering connection (a maximum of one).
+	// +kubebuilder:validation:Optional
+	Accepter []AccepterParameters `json:"accepter,omitempty" tf:"accepter,omitempty"`
 
 	// Accept the peering (both VPCs need to be in the same AWS account and region).
 	// +kubebuilder:validation:Optional
@@ -90,15 +93,16 @@ type VPCPeeringConnectionParameters struct {
 	PeerRegion *string `json:"peerRegion,omitempty" tf:"peer_region,omitempty"`
 
 	// The ID of the VPC with which you are creating the VPC Peering Connection.
-	// +crossplane:generate:reference:type=VPC
+	// +crossplane:generate:reference:type=github.com/dkb-bank/official-provider-aws/apis/ec2/v1beta1.VPC
+	// +crossplane:generate:reference:extractor=github.com/upbound/upjet/pkg/resource.ExtractResourceID()
 	// +kubebuilder:validation:Optional
 	PeerVPCID *string `json:"peerVpcId,omitempty" tf:"peer_vpc_id,omitempty"`
 
-	// Reference to a VPC to populate peerVpcId.
+	// Reference to a VPC in ec2 to populate peerVpcId.
 	// +kubebuilder:validation:Optional
 	PeerVPCIDRef *v1.Reference `json:"peerVpcIdRef,omitempty" tf:"-"`
 
-	// Selector for a VPC to populate peerVpcId.
+	// Selector for a VPC in ec2 to populate peerVpcId.
 	// +kubebuilder:validation:Optional
 	PeerVPCIDSelector *v1.Selector `json:"peerVpcIdSelector,omitempty" tf:"-"`
 
@@ -106,6 +110,11 @@ type VPCPeeringConnectionParameters struct {
 	// +upjet:crd:field:TFTag=-
 	// +kubebuilder:validation:Required
 	Region *string `json:"region" tf:"-"`
+
+	// A optional configuration block that allows for VPC Peering Connection options to be set for the VPC that requests
+	// the peering connection (a maximum of one).
+	// +kubebuilder:validation:Optional
+	Requester []RequesterParameters `json:"requester,omitempty" tf:"requester,omitempty"`
 
 	// Key-value map of resource tags.
 	// +kubebuilder:validation:Optional
