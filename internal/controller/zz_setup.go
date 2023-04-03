@@ -17,6 +17,8 @@ import (
 	resourcepolicy "github.com/dkb-bank/official-provider-aws/internal/controller/cloudwatchlogs/resourcepolicy"
 	stream "github.com/dkb-bank/official-provider-aws/internal/controller/cloudwatchlogs/stream"
 	subscriptionfilter "github.com/dkb-bank/official-provider-aws/internal/controller/cloudwatchlogs/subscriptionfilter"
+	locations3 "github.com/dkb-bank/official-provider-aws/internal/controller/datasync/locations3"
+	task "github.com/dkb-bank/official-provider-aws/internal/controller/datasync/task"
 	bgppeer "github.com/dkb-bank/official-provider-aws/internal/controller/directconnect/bgppeer"
 	connection "github.com/dkb-bank/official-provider-aws/internal/controller/directconnect/connection"
 	connectionassociation "github.com/dkb-bank/official-provider-aws/internal/controller/directconnect/connectionassociation"
@@ -33,6 +35,9 @@ import (
 	privatevirtualinterface "github.com/dkb-bank/official-provider-aws/internal/controller/directconnect/privatevirtualinterface"
 	publicvirtualinterface "github.com/dkb-bank/official-provider-aws/internal/controller/directconnect/publicvirtualinterface"
 	transitvirtualinterface "github.com/dkb-bank/official-provider-aws/internal/controller/directconnect/transitvirtualinterface"
+	globaltable "github.com/dkb-bank/official-provider-aws/internal/controller/dynamodb/globaltable"
+	table "github.com/dkb-bank/official-provider-aws/internal/controller/dynamodb/table"
+	tag "github.com/dkb-bank/official-provider-aws/internal/controller/dynamodb/tag"
 	instance "github.com/dkb-bank/official-provider-aws/internal/controller/ec2/instance"
 	internetgateway "github.com/dkb-bank/official-provider-aws/internal/controller/ec2/internetgateway"
 	keypair "github.com/dkb-bank/official-provider-aws/internal/controller/ec2/keypair"
@@ -43,7 +48,7 @@ import (
 	securitygroup "github.com/dkb-bank/official-provider-aws/internal/controller/ec2/securitygroup"
 	securitygrouprule "github.com/dkb-bank/official-provider-aws/internal/controller/ec2/securitygrouprule"
 	subnet "github.com/dkb-bank/official-provider-aws/internal/controller/ec2/subnet"
-	tag "github.com/dkb-bank/official-provider-aws/internal/controller/ec2/tag"
+	tagec2 "github.com/dkb-bank/official-provider-aws/internal/controller/ec2/tag"
 	transitgateway "github.com/dkb-bank/official-provider-aws/internal/controller/ec2/transitgateway"
 	vpc "github.com/dkb-bank/official-provider-aws/internal/controller/ec2/vpc"
 	vpcendpoint "github.com/dkb-bank/official-provider-aws/internal/controller/ec2/vpcendpoint"
@@ -94,6 +99,7 @@ import (
 	replicakey "github.com/dkb-bank/official-provider-aws/internal/controller/kms/replicakey"
 	firewall "github.com/dkb-bank/official-provider-aws/internal/controller/networkfirewall/firewall"
 	firewallpolicy "github.com/dkb-bank/official-provider-aws/internal/controller/networkfirewall/firewallpolicy"
+	loggingconfiguration "github.com/dkb-bank/official-provider-aws/internal/controller/networkfirewall/loggingconfiguration"
 	rulegroup "github.com/dkb-bank/official-provider-aws/internal/controller/networkfirewall/rulegroup"
 	providerconfig "github.com/dkb-bank/official-provider-aws/internal/controller/providerconfig"
 	bucket "github.com/dkb-bank/official-provider-aws/internal/controller/s3/bucket"
@@ -147,6 +153,8 @@ func Setup(mgr ctrl.Manager, o controller.Options) error {
 		resourcepolicy.Setup,
 		stream.Setup,
 		subscriptionfilter.Setup,
+		locations3.Setup,
+		task.Setup,
 		bgppeer.Setup,
 		connection.Setup,
 		connectionassociation.Setup,
@@ -163,6 +171,9 @@ func Setup(mgr ctrl.Manager, o controller.Options) error {
 		privatevirtualinterface.Setup,
 		publicvirtualinterface.Setup,
 		transitvirtualinterface.Setup,
+		globaltable.Setup,
+		table.Setup,
+		tag.Setup,
 		instance.Setup,
 		internetgateway.Setup,
 		keypair.Setup,
@@ -173,7 +184,7 @@ func Setup(mgr ctrl.Manager, o controller.Options) error {
 		securitygroup.Setup,
 		securitygrouprule.Setup,
 		subnet.Setup,
-		tag.Setup,
+		tagec2.Setup,
 		transitgateway.Setup,
 		vpc.Setup,
 		vpcendpoint.Setup,
@@ -224,6 +235,7 @@ func Setup(mgr ctrl.Manager, o controller.Options) error {
 		replicakey.Setup,
 		firewall.Setup,
 		firewallpolicy.Setup,
+		loggingconfiguration.Setup,
 		rulegroup.Setup,
 		providerconfig.Setup,
 		bucket.Setup,
