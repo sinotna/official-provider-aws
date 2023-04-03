@@ -40,10 +40,10 @@ var ExternalNameConfigs = map[string]config.ExternalName{
 	// // amp
 	// //
 	// // ID is a random UUID.
-	// "aws_prometheus_workspace":            config.IdentifierFromProvider,
-	// "aws_prometheus_rule_group_namespace": config.TemplatedStringAsIdentifier("name", "arn:aws:aps:{{ .parameters.region }}:{{ .client_metadata.account_id }}:rulegroupsnamespace/IDstring/{{ .external_name }}"),
-	// // Uses the ID of workspace, workspace_id parameter.
-	// "aws_prometheus_alert_manager_definition": config.IdentifierFromProvider,
+	"aws_prometheus_workspace":            config.IdentifierFromProvider,
+	"aws_prometheus_rule_group_namespace": config.TemplatedStringAsIdentifier("name", "arn:aws:aps:{{ .parameters.region }}:{{ .client_metadata.account_id }}:rulegroupsnamespace/IDstring/{{ .external_name }}"),
+	// Uses the ID of workspace, workspace_id parameter.
+	"aws_prometheus_alert_manager_definition": config.IdentifierFromProvider,
 
 	// // apigatewayv2
 	// //
