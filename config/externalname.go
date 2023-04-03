@@ -803,14 +803,14 @@ var ExternalNameConfigs = map[string]config.ExternalName{
 	// // Transfer Users can be imported using the server_id and user_name separated by /
 	// "aws_transfer_user": FormattedIdentifierUserDefinedNameLast("user_name", "/", "server_id"),
 
-	// // dynamodb
-	// //
-	// // DynamoDB tables can be imported using the name
-	// "aws_dynamodb_table": config.NameAsIdentifier,
-	// // DynamoDB Global Tables can be imported using the global table name
-	// "aws_dynamodb_global_table": config.NameAsIdentifier,
-	// // aws_dynamodb_tag can be imported by using the DynamoDB resource identifier and key, separated by a comma (,)
-	// "aws_dynamodb_tag": config.TemplatedStringAsIdentifier("", "{{ .parameters.resource_arn }},{{ .parameters.key }}"),
+	// dynamodb
+	//
+	// DynamoDB tables can be imported using the name
+	"aws_dynamodb_table": config.NameAsIdentifier,
+	// DynamoDB Global Tables can be imported using the global table name
+	"aws_dynamodb_global_table": config.NameAsIdentifier,
+	// aws_dynamodb_tag can be imported by using the DynamoDB resource identifier and key, separated by a comma (,)
+	"aws_dynamodb_tag": config.TemplatedStringAsIdentifier("", "{{ .parameters.resource_arn }},{{ .parameters.key }}"),
 
 	// // sns
 	// //
@@ -1309,6 +1309,29 @@ var ExternalNameConfigs = map[string]config.ExternalName{
 	// "aws_config_delivery_channel": config.NameAsIdentifier,
 	// // Remediation Configurations can be imported using the name config_rule_name
 	// "aws_config_remediation_configuration": config.ParameterAsIdentifier("config_rule_name"),
+
+	// datasync
+	//
+	// // aws_datasync_agent can be imported by using the DataSync Agent Amazon Resource Name (ARN)
+	// "aws_datasync_agent": config.IdentifierFromProvider,
+	// // aws_datasync_location_efs can be imported by using the DataSync Task Amazon Resource Name (ARN)
+	// "aws_datasync_location_efs": config.IdentifierFromProvider,
+	// // aws_datasync_location_fsx_lustre_file_system can be imported by using the DataSync-ARN#FSx-Lustre-ARN
+	// "aws_datasync_location_fsx_lustre_file_system": config.IdentifierFromProvider,
+	// // aws_datasync_location_fsx_openzfs_file_system can be imported by using the DataSync-ARN#FSx-openzfs-ARN
+	// "aws_datasync_location_fsx_openzfs_file_system": config.IdentifierFromProvider,
+	// // aws_datasync_location_fsx_windows_file_system can be imported by using the DataSync-ARN#FSx-Windows-ARN
+	// "aws_datasync_location_fsx_windows_file_system": config.IdentifierFromProvider,
+	// // aws_datasync_location_hdfs can be imported by using the Amazon Resource Name (ARN)
+	// "aws_datasync_location_hdfs": config.IdentifierFromProvider,
+	// // aws_datasync_location_nfs can be imported by using the DataSync Task Amazon Resource Name (ARN)
+	// "aws_datasync_location_nfs": config.IdentifierFromProvider,
+	// aws_datasync_location_s3 can be imported by using the DataSync Task Amazon Resource Name (ARN)
+	"aws_datasync_location_s3": config.IdentifierFromProvider,
+	// // aws_datasync_location_smb can be imported by using the Amazon Resource Name (ARN)
+	// "aws_datasync_location_smb": config.IdentifierFromProvider,
+	// aws_datasync_task can be imported by using the DataSync Task Amazon Resource Name (ARN)
+	"aws_datasync_task": config.IdentifierFromProvider,
 
 	// // appsync
 	// //
@@ -2096,6 +2119,9 @@ var ExternalNameConfigs = map[string]config.ExternalName{
 	// Network Firewall Rule Groups can be imported using their ARN
 	// Example: arn:aws:network-firewall:us-west-1:123456789012:stateful-rulegroup/example
 	"aws_networkfirewall_rule_group": config.TemplatedStringAsIdentifier("", "arn:aws:network-firewall:{{ .parameters.region }}:{{ .setup.client_metadata.account_id }}:stateful-rulegroup/{{ .external_name }}"),
+	// Network Firewall Logging Configurations can be imported using the firewall_arn
+	// Example: arn:aws:network-firewall:us-west-1:123456789012:firewall/example
+	"aws_networkfirewall_logging_configuration": config.TemplatedStringAsIdentifier("", "arn:aws:network-firewall:{{ .parameters.region }}:{{ .setup.client_metadata.account_id }}:firewall/{{ .external_name }}"),
 
 	// // networkmanager
 	// //
