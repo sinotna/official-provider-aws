@@ -9,6 +9,9 @@ import (
 
 	"github.com/upbound/upjet/pkg/controller"
 
+	alertmanagerdefinition "github.com/dkb-bank/official-provider-aws/internal/controller/amp/alertmanagerdefinition"
+	rulegroupnamespace "github.com/dkb-bank/official-provider-aws/internal/controller/amp/rulegroupnamespace"
+	workspace "github.com/dkb-bank/official-provider-aws/internal/controller/amp/workspace"
 	definition "github.com/dkb-bank/official-provider-aws/internal/controller/cloudwatchlogs/definition"
 	destination "github.com/dkb-bank/official-provider-aws/internal/controller/cloudwatchlogs/destination"
 	destinationpolicy "github.com/dkb-bank/official-provider-aws/internal/controller/cloudwatchlogs/destinationpolicy"
@@ -60,7 +63,7 @@ import (
 	lbtargetgroupattachment "github.com/dkb-bank/official-provider-aws/internal/controller/elbv2/lbtargetgroupattachment"
 	deliverystream "github.com/dkb-bank/official-provider-aws/internal/controller/firehose/deliverystream"
 	roleassociation "github.com/dkb-bank/official-provider-aws/internal/controller/grafana/roleassociation"
-	workspace "github.com/dkb-bank/official-provider-aws/internal/controller/grafana/workspace"
+	workspacegrafana "github.com/dkb-bank/official-provider-aws/internal/controller/grafana/workspace"
 	workspacesamlconfiguration "github.com/dkb-bank/official-provider-aws/internal/controller/grafana/workspacesamlconfiguration"
 	accesskey "github.com/dkb-bank/official-provider-aws/internal/controller/iam/accesskey"
 	accountalias "github.com/dkb-bank/official-provider-aws/internal/controller/iam/accountalias"
@@ -145,6 +148,9 @@ import (
 // the supplied manager.
 func Setup(mgr ctrl.Manager, o controller.Options) error {
 	for _, setup := range []func(ctrl.Manager, controller.Options) error{
+		alertmanagerdefinition.Setup,
+		rulegroupnamespace.Setup,
+		workspace.Setup,
 		definition.Setup,
 		destination.Setup,
 		destinationpolicy.Setup,
@@ -196,7 +202,7 @@ func Setup(mgr ctrl.Manager, o controller.Options) error {
 		lbtargetgroupattachment.Setup,
 		deliverystream.Setup,
 		roleassociation.Setup,
-		workspace.Setup,
+		workspacegrafana.Setup,
 		workspacesamlconfiguration.Setup,
 		accesskey.Setup,
 		accountalias.Setup,
