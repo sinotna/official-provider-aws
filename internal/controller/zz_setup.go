@@ -38,6 +38,12 @@ import (
 	privatevirtualinterface "github.com/dkb-bank/official-provider-aws/internal/controller/directconnect/privatevirtualinterface"
 	publicvirtualinterface "github.com/dkb-bank/official-provider-aws/internal/controller/directconnect/publicvirtualinterface"
 	transitvirtualinterface "github.com/dkb-bank/official-provider-aws/internal/controller/directconnect/transitvirtualinterface"
+	certificate "github.com/dkb-bank/official-provider-aws/internal/controller/dms/certificate"
+	endpoint "github.com/dkb-bank/official-provider-aws/internal/controller/dms/endpoint"
+	eventsubscription "github.com/dkb-bank/official-provider-aws/internal/controller/dms/eventsubscription"
+	replicationinstance "github.com/dkb-bank/official-provider-aws/internal/controller/dms/replicationinstance"
+	replicationsubnetgroup "github.com/dkb-bank/official-provider-aws/internal/controller/dms/replicationsubnetgroup"
+	replicationtask "github.com/dkb-bank/official-provider-aws/internal/controller/dms/replicationtask"
 	globaltable "github.com/dkb-bank/official-provider-aws/internal/controller/dynamodb/globaltable"
 	table "github.com/dkb-bank/official-provider-aws/internal/controller/dynamodb/table"
 	tag "github.com/dkb-bank/official-provider-aws/internal/controller/dynamodb/tag"
@@ -177,6 +183,12 @@ func Setup(mgr ctrl.Manager, o controller.Options) error {
 		privatevirtualinterface.Setup,
 		publicvirtualinterface.Setup,
 		transitvirtualinterface.Setup,
+		certificate.Setup,
+		endpoint.Setup,
+		eventsubscription.Setup,
+		replicationinstance.Setup,
+		replicationsubnetgroup.Setup,
+		replicationtask.Setup,
 		globaltable.Setup,
 		table.Setup,
 		tag.Setup,
