@@ -112,6 +112,10 @@ type FirewallPolicyParameters struct {
 	// +kubebuilder:validation:Required
 	FirewallPolicy []FirewallPolicyFirewallPolicyParameters `json:"firewallPolicy" tf:"firewall_policy,omitempty"`
 
+	// A friendly name of the firewall policy.
+	// +kubebuilder:validation:Required
+	Name *string `json:"name" tf:"name,omitempty"`
+
 	// Region is the region you'd like your resource to be created in.
 	// +upjet:crd:field:TFTag=-
 	// +kubebuilder:validation:Required
