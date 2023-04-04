@@ -14,6 +14,7 @@ import (
 	v1beta1cloudwatchlogs "github.com/dkb-bank/official-provider-aws/apis/cloudwatchlogs/v1beta1"
 	v1beta1datasync "github.com/dkb-bank/official-provider-aws/apis/datasync/v1beta1"
 	v1beta1directconnect "github.com/dkb-bank/official-provider-aws/apis/directconnect/v1beta1"
+	v1beta1dms "github.com/dkb-bank/official-provider-aws/apis/dms/v1beta1"
 	v1beta1dynamodb "github.com/dkb-bank/official-provider-aws/apis/dynamodb/v1beta1"
 	v1beta1ec2 "github.com/dkb-bank/official-provider-aws/apis/ec2/v1beta1"
 	v1beta1elbv2 "github.com/dkb-bank/official-provider-aws/apis/elbv2/v1beta1"
@@ -40,6 +41,7 @@ func init() {
 		v1beta1cloudwatchlogs.SchemeBuilder.AddToScheme,
 		v1beta1datasync.SchemeBuilder.AddToScheme,
 		v1beta1directconnect.SchemeBuilder.AddToScheme,
+		v1beta1dms.SchemeBuilder.AddToScheme,
 		v1beta1dynamodb.SchemeBuilder.AddToScheme,
 		v1beta1ec2.SchemeBuilder.AddToScheme,
 		v1beta1elbv2.SchemeBuilder.AddToScheme,
