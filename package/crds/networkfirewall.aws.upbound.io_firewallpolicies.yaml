@@ -336,6 +336,9 @@ spec:
                       - statelessFragmentDefaultActions
                       type: object
                     type: array
+                  name:
+                    description: A friendly name of the firewall policy.
+                    type: string
                   region:
                     description: Region is the region you'd like your resource to
                       be created in.
@@ -347,6 +350,7 @@ spec:
                     type: object
                 required:
                 - firewallPolicy
+                - name
                 - region
                 type: object
               providerConfigRef:
