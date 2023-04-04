@@ -21,6 +21,7 @@ import (
 	"github.com/dkb-bank/official-provider-aws/config/kinesisanalytics"
 	kinesisanalytics2 "github.com/dkb-bank/official-provider-aws/config/kinesisanalyticsv2"
 	"github.com/dkb-bank/official-provider-aws/config/kms"
+	"github.com/dkb-bank/official-provider-aws/config/networkfirewall"
 	"github.com/dkb-bank/official-provider-aws/config/s3"
 )
 
@@ -140,6 +141,7 @@ func GetProvider() *config.Provider {
 		// licensemanager.Configure,
 		// mq.Configure,
 		// neptune.Configure,
+		networkfirewall.Configure,
 		// opensearch.Configure,
 		// rds.Configure,
 		// redshift.Configure,
