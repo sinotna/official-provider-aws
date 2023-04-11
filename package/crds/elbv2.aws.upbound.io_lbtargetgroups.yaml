@@ -331,6 +331,7 @@ spec:
                         type: object
                     type: object
                 required:
+                - name
                 - region
                 type: object
               providerConfigRef:

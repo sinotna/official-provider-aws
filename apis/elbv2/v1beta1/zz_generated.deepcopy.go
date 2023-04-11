@@ -1817,6 +1817,18 @@ func (in *LBParameters) DeepCopyInto(out *LBParameters) {
 		*out = new(string)
 		**out = **in
 	}
+	if in.SecurityGroupRefs != nil {
+		in, out := &in.SecurityGroupRefs, &out.SecurityGroupRefs
+		*out = make([]v1.Reference, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
+	}
+	if in.SecurityGroupSelector != nil {
+		in, out := &in.SecurityGroupSelector, &out.SecurityGroupSelector
+		*out = new(v1.Selector)
+		(*in).DeepCopyInto(*out)
+	}
 	if in.SecurityGroups != nil {
 		in, out := &in.SecurityGroups, &out.SecurityGroups
 		*out = make([]*string, len(*in))
@@ -1834,6 +1846,18 @@ func (in *LBParameters) DeepCopyInto(out *LBParameters) {
 		for i := range *in {
 			(*in)[i].DeepCopyInto(&(*out)[i])
 		}
+	}
+	if in.SubnetRefs != nil {
+		in, out := &in.SubnetRefs, &out.SubnetRefs
+		*out = make([]v1.Reference, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
+	}
+	if in.SubnetSelector != nil {
+		in, out := &in.SubnetSelector, &out.SubnetSelector
+		*out = new(v1.Selector)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.Subnets != nil {
 		in, out := &in.Subnets, &out.Subnets
@@ -2050,16 +2074,6 @@ func (in *LBTargetGroupAttachmentParameters) DeepCopyInto(out *LBTargetGroupAtta
 		in, out := &in.TargetID, &out.TargetID
 		*out = new(string)
 		**out = **in
-	}
-	if in.TargetIDRef != nil {
-		in, out := &in.TargetIDRef, &out.TargetIDRef
-		*out = new(v1.Reference)
-		(*in).DeepCopyInto(*out)
-	}
-	if in.TargetIDSelector != nil {
-		in, out := &in.TargetIDSelector, &out.TargetIDSelector
-		*out = new(v1.Selector)
-		(*in).DeepCopyInto(*out)
 	}
 }
 
@@ -2753,6 +2767,16 @@ func (in *TargetGroupParameters) DeepCopyInto(out *TargetGroupParameters) {
 		in, out := &in.Arn, &out.Arn
 		*out = new(string)
 		**out = **in
+	}
+	if in.ArnRef != nil {
+		in, out := &in.ArnRef, &out.ArnRef
+		*out = new(v1.Reference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.ArnSelector != nil {
+		in, out := &in.ArnSelector, &out.ArnSelector
+		*out = new(v1.Selector)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.Weight != nil {
 		in, out := &in.Weight, &out.Weight
