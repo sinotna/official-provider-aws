@@ -131,16 +131,15 @@ type DefaultActionParameters struct {
 	Redirect []RedirectParameters `json:"redirect,omitempty" tf:"redirect,omitempty"`
 
 	// ARN of the Target Group to which to route traffic. Specify only if type is forward and you want to route to a single target group. To route to one or more target groups, use a forward block instead.
-	// +crossplane:generate:reference:type=github.com/dkb-bank/official-provider-aws/apis/elbv2/v1beta1.LBTargetGroup
-	// +crossplane:generate:reference:extractor=github.com/upbound/upjet/pkg/resource.ExtractParamPath("arn",true)
+	// +crossplane:generate:reference:type=LBTargetGroup
 	// +kubebuilder:validation:Optional
 	TargetGroupArn *string `json:"targetGroupArn,omitempty" tf:"target_group_arn,omitempty"`
 
-	// Reference to a LBTargetGroup in elbv2 to populate targetGroupArn.
+	// Reference to a LBTargetGroup to populate targetGroupArn.
 	// +kubebuilder:validation:Optional
 	TargetGroupArnRef *v1.Reference `json:"targetGroupArnRef,omitempty" tf:"-"`
 
-	// Selector for a LBTargetGroup in elbv2 to populate targetGroupArn.
+	// Selector for a LBTargetGroup to populate targetGroupArn.
 	// +kubebuilder:validation:Optional
 	TargetGroupArnSelector *v1.Selector `json:"targetGroupArnSelector,omitempty" tf:"-"`
 
@@ -208,16 +207,15 @@ type LBListenerParameters struct {
 	DefaultAction []DefaultActionParameters `json:"defaultAction" tf:"default_action,omitempty"`
 
 	// ARN of the load balancer.
-	// +crossplane:generate:reference:type=github.com/dkb-bank/official-provider-aws/apis/elbv2/v1beta1.LB
-	// +crossplane:generate:reference:extractor=github.com/upbound/upjet/pkg/resource.ExtractParamPath("arn",true)
+	// +crossplane:generate:reference:type=LB
 	// +kubebuilder:validation:Optional
 	LoadBalancerArn *string `json:"loadBalancerArn,omitempty" tf:"load_balancer_arn,omitempty"`
 
-	// Reference to a LB in elbv2 to populate loadBalancerArn.
+	// Reference to a LB to populate loadBalancerArn.
 	// +kubebuilder:validation:Optional
 	LoadBalancerArnRef *v1.Reference `json:"loadBalancerArnRef,omitempty" tf:"-"`
 
-	// Selector for a LB in elbv2 to populate loadBalancerArn.
+	// Selector for a LB to populate loadBalancerArn.
 	// +kubebuilder:validation:Optional
 	LoadBalancerArnSelector *v1.Selector `json:"loadBalancerArnSelector,omitempty" tf:"-"`
 
@@ -293,8 +291,17 @@ type TargetGroupObservation struct {
 type TargetGroupParameters struct {
 
 	// ARN of the target group.
-	// +kubebuilder:validation:Required
-	Arn *string `json:"arn" tf:"arn,omitempty"`
+	// +crossplane:generate:reference:type=LBTargetGroup
+	// +kubebuilder:validation:Optional
+	Arn *string `json:"arn,omitempty" tf:"arn,omitempty"`
+
+	// Reference to a LBTargetGroup to populate arn.
+	// +kubebuilder:validation:Optional
+	ArnRef *v1.Reference `json:"arnRef,omitempty" tf:"-"`
+
+	// Selector for a LBTargetGroup to populate arn.
+	// +kubebuilder:validation:Optional
+	ArnSelector *v1.Selector `json:"arnSelector,omitempty" tf:"-"`
 
 	// Weight. The range is 0 to 999.
 	// +kubebuilder:validation:Optional
