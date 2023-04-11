@@ -13,9 +13,7 @@ spec:
     targetGroupArnSelector:
       matchLabels:
         testing.upbound.io/example-name: test
-    targetIdSelector:
-      matchLabels:
-        testing.upbound.io/example-name: test
+    targetId: ${aws_instance.test.id}
 
 ---
 

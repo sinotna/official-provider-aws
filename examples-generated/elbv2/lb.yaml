@@ -19,9 +19,11 @@ spec:
     loadBalancerType: application
     name: test-lb-tf
     region: us-west-1
-    securityGroups:
-    - ${aws_security_group.lb_sg.id}
-    subnets: '${[for subnet in aws_subnet.public : subnet.id]}'
+    securityGroupRefs:
+    - name: lb_sg
+    subnetSelector:
+      matchLabels:
+        testing.upbound.io/example-name: 'public : subnet'
     tags:
       Environment: production
 

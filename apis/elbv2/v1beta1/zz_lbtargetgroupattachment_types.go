@@ -35,32 +35,21 @@ type LBTargetGroupAttachmentParameters struct {
 	Region *string `json:"region" tf:"-"`
 
 	// The ARN of the target group with which to register targets
-	// +crossplane:generate:reference:type=github.com/dkb-bank/official-provider-aws/apis/elbv2/v1beta1.LBTargetGroup
-	// +crossplane:generate:reference:extractor=github.com/upbound/upjet/pkg/resource.ExtractParamPath("arn",true)
+	// +crossplane:generate:reference:type=LBTargetGroup
 	// +kubebuilder:validation:Optional
 	TargetGroupArn *string `json:"targetGroupArn,omitempty" tf:"target_group_arn,omitempty"`
 
-	// Reference to a LBTargetGroup in elbv2 to populate targetGroupArn.
+	// Reference to a LBTargetGroup to populate targetGroupArn.
 	// +kubebuilder:validation:Optional
 	TargetGroupArnRef *v1.Reference `json:"targetGroupArnRef,omitempty" tf:"-"`
 
-	// Selector for a LBTargetGroup in elbv2 to populate targetGroupArn.
+	// Selector for a LBTargetGroup to populate targetGroupArn.
 	// +kubebuilder:validation:Optional
 	TargetGroupArnSelector *v1.Selector `json:"targetGroupArnSelector,omitempty" tf:"-"`
 
 	// The ID of the target. This is the Instance ID for an instance, or the container ID for an ECS container. If the target type is ip, specify an IP address. If the target type is lambda, specify the arn of lambda. If the target type is alb, specify the arn of alb.
-	// +crossplane:generate:reference:type=github.com/dkb-bank/official-provider-aws/apis/ec2/v1beta1.Instance
-	// +crossplane:generate:reference:extractor=github.com/upbound/upjet/pkg/resource.ExtractResourceID()
-	// +kubebuilder:validation:Optional
-	TargetID *string `json:"targetId,omitempty" tf:"target_id,omitempty"`
-
-	// Reference to a Instance in ec2 to populate targetId.
-	// +kubebuilder:validation:Optional
-	TargetIDRef *v1.Reference `json:"targetIdRef,omitempty" tf:"-"`
-
-	// Selector for a Instance in ec2 to populate targetId.
-	// +kubebuilder:validation:Optional
-	TargetIDSelector *v1.Selector `json:"targetIdSelector,omitempty" tf:"-"`
+	// +kubebuilder:validation:Required
+	TargetID *string `json:"targetId" tf:"target_id,omitempty"`
 }
 
 // LBTargetGroupAttachmentSpec defines the desired state of LBTargetGroupAttachment
