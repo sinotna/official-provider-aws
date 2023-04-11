@@ -20,7 +20,6 @@ type AccessLogsParameters struct {
 
 	// The S3 bucket name to store the logs in.
 	// +crossplane:generate:reference:type=github.com/dkb-bank/official-provider-aws/apis/s3/v1beta1.Bucket
-	// +crossplane:generate:reference:extractor=github.com/upbound/upjet/pkg/resource.ExtractResourceID()
 	// +kubebuilder:validation:Optional
 	Bucket *string `json:"bucket,omitempty" tf:"bucket,omitempty"`
 
@@ -133,7 +132,18 @@ type LBParameters struct {
 	// +kubebuilder:validation:Required
 	Region *string `json:"region" tf:"-"`
 
+	// References to SecurityGroup in ec2 to populate securityGroups.
+	// +kubebuilder:validation:Optional
+	SecurityGroupRefs []v1.Reference `json:"securityGroupRefs,omitempty" tf:"-"`
+
+	// Selector for a list of SecurityGroup in ec2 to populate securityGroups.
+	// +kubebuilder:validation:Optional
+	SecurityGroupSelector *v1.Selector `json:"securityGroupSelector,omitempty" tf:"-"`
+
 	// A list of security group IDs to assign to the LB. Only valid for Load Balancers of type application.
+	// +crossplane:generate:reference:type=github.com/dkb-bank/official-provider-aws/apis/ec2/v1beta1.SecurityGroup
+	// +crossplane:generate:reference:refFieldName=SecurityGroupRefs
+	// +crossplane:generate:reference:selectorFieldName=SecurityGroupSelector
 	// +kubebuilder:validation:Optional
 	SecurityGroups []*string `json:"securityGroups,omitempty" tf:"security_groups,omitempty"`
 
@@ -141,9 +151,20 @@ type LBParameters struct {
 	// +kubebuilder:validation:Optional
 	SubnetMapping []SubnetMappingParameters `json:"subnetMapping,omitempty" tf:"subnet_mapping,omitempty"`
 
+	// References to Subnet in ec2 to populate subnets.
+	// +kubebuilder:validation:Optional
+	SubnetRefs []v1.Reference `json:"subnetRefs,omitempty" tf:"-"`
+
+	// Selector for a list of Subnet in ec2 to populate subnets.
+	// +kubebuilder:validation:Optional
+	SubnetSelector *v1.Selector `json:"subnetSelector,omitempty" tf:"-"`
+
 	// A list of subnet IDs to attach to the LB. Subnets
 	// cannot be updated for Load Balancers of type network. Changing this value
 	// for load balancers of type network will force a recreation of the resource.
+	// +crossplane:generate:reference:type=github.com/dkb-bank/official-provider-aws/apis/ec2/v1beta1.Subnet
+	// +crossplane:generate:reference:refFieldName=SubnetRefs
+	// +crossplane:generate:reference:selectorFieldName=SubnetSelector
 	// +kubebuilder:validation:Optional
 	Subnets []*string `json:"subnets,omitempty" tf:"subnets,omitempty"`
 
@@ -174,7 +195,6 @@ type SubnetMappingParameters struct {
 
 	// ID of the subnet of which to attach to the load balancer. You can specify only one subnet per Availability Zone.
 	// +crossplane:generate:reference:type=github.com/dkb-bank/official-provider-aws/apis/ec2/v1beta1.Subnet
-	// +crossplane:generate:reference:extractor=github.com/upbound/upjet/pkg/resource.ExtractResourceID()
 	// +kubebuilder:validation:Optional
 	SubnetID *string `json:"subnetId,omitempty" tf:"subnet_id,omitempty"`
 

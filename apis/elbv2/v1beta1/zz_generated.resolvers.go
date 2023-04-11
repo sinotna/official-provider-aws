@@ -20,12 +20,13 @@ func (mg *LB) ResolveReferences(ctx context.Context, c client.Reader) error {
 	r := reference.NewAPIResolver(c, mg)
 
 	var rsp reference.ResolutionResponse
+	var mrsp reference.MultiResolutionResponse
 	var err error
 
 	for i3 := 0; i3 < len(mg.Spec.ForProvider.AccessLogs); i3++ {
 		rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
 			CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.AccessLogs[i3].Bucket),
-			Extract:      resource.ExtractResourceID(),
+			Extract:      reference.ExternalName(),
 			Reference:    mg.Spec.ForProvider.AccessLogs[i3].BucketRef,
 			Selector:     mg.Spec.ForProvider.AccessLogs[i3].BucketSelector,
 			To: reference.To{
@@ -40,10 +41,26 @@ func (mg *LB) ResolveReferences(ctx context.Context, c client.Reader) error {
 		mg.Spec.ForProvider.AccessLogs[i3].BucketRef = rsp.ResolvedReference
 
 	}
+	mrsp, err = r.ResolveMultiple(ctx, reference.MultiResolutionRequest{
+		CurrentValues: reference.FromPtrValues(mg.Spec.ForProvider.SecurityGroups),
+		Extract:       reference.ExternalName(),
+		References:    mg.Spec.ForProvider.SecurityGroupRefs,
+		Selector:      mg.Spec.ForProvider.SecurityGroupSelector,
+		To: reference.To{
+			List:    &v1beta11.SecurityGroupList{},
+			Managed: &v1beta11.SecurityGroup{},
+		},
+	})
+	if err != nil {
+		return errors.Wrap(err, "mg.Spec.ForProvider.SecurityGroups")
+	}
+	mg.Spec.ForProvider.SecurityGroups = reference.ToPtrValues(mrsp.ResolvedValues)
+	mg.Spec.ForProvider.SecurityGroupRefs = mrsp.ResolvedReferences
+
 	for i3 := 0; i3 < len(mg.Spec.ForProvider.SubnetMapping); i3++ {
 		rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
 			CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.SubnetMapping[i3].SubnetID),
-			Extract:      resource.ExtractResourceID(),
+			Extract:      reference.ExternalName(),
 			Reference:    mg.Spec.ForProvider.SubnetMapping[i3].SubnetIDRef,
 			Selector:     mg.Spec.ForProvider.SubnetMapping[i3].SubnetIDSelector,
 			To: reference.To{
@@ -58,6 +75,21 @@ func (mg *LB) ResolveReferences(ctx context.Context, c client.Reader) error {
 		mg.Spec.ForProvider.SubnetMapping[i3].SubnetIDRef = rsp.ResolvedReference
 
 	}
+	mrsp, err = r.ResolveMultiple(ctx, reference.MultiResolutionRequest{
+		CurrentValues: reference.FromPtrValues(mg.Spec.ForProvider.Subnets),
+		Extract:       reference.ExternalName(),
+		References:    mg.Spec.ForProvider.SubnetRefs,
+		Selector:      mg.Spec.ForProvider.SubnetSelector,
+		To: reference.To{
+			List:    &v1beta11.SubnetList{},
+			Managed: &v1beta11.Subnet{},
+		},
+	})
+	if err != nil {
+		return errors.Wrap(err, "mg.Spec.ForProvider.Subnets")
+	}
+	mg.Spec.ForProvider.Subnets = reference.ToPtrValues(mrsp.ResolvedValues)
+	mg.Spec.ForProvider.SubnetRefs = mrsp.ResolvedReferences
 
 	return nil
 }
@@ -70,9 +102,31 @@ func (mg *LBListener) ResolveReferences(ctx context.Context, c client.Reader) er
 	var err error
 
 	for i3 := 0; i3 < len(mg.Spec.ForProvider.DefaultAction); i3++ {
+		for i4 := 0; i4 < len(mg.Spec.ForProvider.DefaultAction[i3].Forward); i4++ {
+			for i5 := 0; i5 < len(mg.Spec.ForProvider.DefaultAction[i3].Forward[i4].TargetGroup); i5++ {
+				rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
+					CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.DefaultAction[i3].Forward[i4].TargetGroup[i5].Arn),
+					Extract:      reference.ExternalName(),
+					Reference:    mg.Spec.ForProvider.DefaultAction[i3].Forward[i4].TargetGroup[i5].ArnRef,
+					Selector:     mg.Spec.ForProvider.DefaultAction[i3].Forward[i4].TargetGroup[i5].ArnSelector,
+					To: reference.To{
+						List:    &LBTargetGroupList{},
+						Managed: &LBTargetGroup{},
+					},
+				})
+				if err != nil {
+					return errors.Wrap(err, "mg.Spec.ForProvider.DefaultAction[i3].Forward[i4].TargetGroup[i5].Arn")
+				}
+				mg.Spec.ForProvider.DefaultAction[i3].Forward[i4].TargetGroup[i5].Arn = reference.ToPtrValue(rsp.ResolvedValue)
+				mg.Spec.ForProvider.DefaultAction[i3].Forward[i4].TargetGroup[i5].ArnRef = rsp.ResolvedReference
+
+			}
+		}
+	}
+	for i3 := 0; i3 < len(mg.Spec.ForProvider.DefaultAction); i3++ {
 		rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
 			CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.DefaultAction[i3].TargetGroupArn),
-			Extract:      resource.ExtractParamPath("arn", true),
+			Extract:      reference.ExternalName(),
 			Reference:    mg.Spec.ForProvider.DefaultAction[i3].TargetGroupArnRef,
 			Selector:     mg.Spec.ForProvider.DefaultAction[i3].TargetGroupArnSelector,
 			To: reference.To{
@@ -89,7 +143,7 @@ func (mg *LBListener) ResolveReferences(ctx context.Context, c client.Reader) er
 	}
 	rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
 		CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.LoadBalancerArn),
-		Extract:      resource.ExtractParamPath("arn", true),
+		Extract:      reference.ExternalName(),
 		Reference:    mg.Spec.ForProvider.LoadBalancerArnRef,
 		Selector:     mg.Spec.ForProvider.LoadBalancerArnSelector,
 		To: reference.To{
@@ -207,7 +261,7 @@ func (mg *LBTargetGroupAttachment) ResolveReferences(ctx context.Context, c clie
 
 	rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
 		CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.TargetGroupArn),
-		Extract:      resource.ExtractParamPath("arn", true),
+		Extract:      reference.ExternalName(),
 		Reference:    mg.Spec.ForProvider.TargetGroupArnRef,
 		Selector:     mg.Spec.ForProvider.TargetGroupArnSelector,
 		To: reference.To{
@@ -220,22 +274,6 @@ func (mg *LBTargetGroupAttachment) ResolveReferences(ctx context.Context, c clie
 	}
 	mg.Spec.ForProvider.TargetGroupArn = reference.ToPtrValue(rsp.ResolvedValue)
 	mg.Spec.ForProvider.TargetGroupArnRef = rsp.ResolvedReference
-
-	rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
-		CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.TargetID),
-		Extract:      resource.ExtractResourceID(),
-		Reference:    mg.Spec.ForProvider.TargetIDRef,
-		Selector:     mg.Spec.ForProvider.TargetIDSelector,
-		To: reference.To{
-			List:    &v1beta11.InstanceList{},
-			Managed: &v1beta11.Instance{},
-		},
-	})
-	if err != nil {
-		return errors.Wrap(err, "mg.Spec.ForProvider.TargetID")
-	}
-	mg.Spec.ForProvider.TargetID = reference.ToPtrValue(rsp.ResolvedValue)
-	mg.Spec.ForProvider.TargetIDRef = rsp.ResolvedReference
 
 	return nil
 }
