@@ -15,7 +15,9 @@ spec:
     options:
     - bytesPerSecond: -1
     region: us-west-1
-    sourceLocationArn: ${aws_datasync_location_nfs.source.arn}
+    sourceLocationArnSelector:
+      matchLabels:
+        testing.upbound.io/example-name: source
 
 ---
 
