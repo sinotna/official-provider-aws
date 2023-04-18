@@ -12,6 +12,7 @@ import (
 	"github.com/upbound/upjet/pkg/registry/reference"
 
 	"github.com/dkb-bank/official-provider-aws/config/cloudwatchlogs"
+	"github.com/dkb-bank/official-provider-aws/config/datasync"
 	"github.com/dkb-bank/official-provider-aws/config/directconnect"
 	"github.com/dkb-bank/official-provider-aws/config/ec2"
 	"github.com/dkb-bank/official-provider-aws/config/elbv2"
@@ -110,6 +111,7 @@ func GetProvider() *config.Provider {
 		// cognitoidp.Configure,
 		// connect.Configure,
 		// cur.Configure,
+		datasync.Configure,
 		// dax.Configure,
 		// devicefarm.Configure,
 		// docdb.Configure,

@@ -655,6 +655,16 @@ func (in *TaskParameters) DeepCopyInto(out *TaskParameters) {
 		*out = new(string)
 		**out = **in
 	}
+	if in.SourceLocationArnRef != nil {
+		in, out := &in.SourceLocationArnRef, &out.SourceLocationArnRef
+		*out = new(v1.Reference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.SourceLocationArnSelector != nil {
+		in, out := &in.SourceLocationArnSelector, &out.SourceLocationArnSelector
+		*out = new(v1.Selector)
+		(*in).DeepCopyInto(*out)
+	}
 	if in.Tags != nil {
 		in, out := &in.Tags, &out.Tags
 		*out = make(map[string]*string, len(*in))

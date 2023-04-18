@@ -132,16 +132,15 @@ type TaskParameters struct {
 	CloudwatchLogGroupArn *string `json:"cloudwatchLogGroupArn,omitempty" tf:"cloudwatch_log_group_arn,omitempty"`
 
 	// Amazon Resource Name (ARN) of destination DataSync Location.
-	// +crossplane:generate:reference:type=github.com/dkb-bank/official-provider-aws/apis/datasync/v1beta1.LocationS3
-	// +crossplane:generate:reference:extractor=github.com/upbound/upjet/pkg/resource.ExtractParamPath("arn",true)
+	// +crossplane:generate:reference:type=LocationS3
 	// +kubebuilder:validation:Optional
 	DestinationLocationArn *string `json:"destinationLocationArn,omitempty" tf:"destination_location_arn,omitempty"`
 
-	// Reference to a LocationS3 in datasync to populate destinationLocationArn.
+	// Reference to a LocationS3 to populate destinationLocationArn.
 	// +kubebuilder:validation:Optional
 	DestinationLocationArnRef *v1.Reference `json:"destinationLocationArnRef,omitempty" tf:"-"`
 
-	// Selector for a LocationS3 in datasync to populate destinationLocationArn.
+	// Selector for a LocationS3 to populate destinationLocationArn.
 	// +kubebuilder:validation:Optional
 	DestinationLocationArnSelector *v1.Selector `json:"destinationLocationArnSelector,omitempty" tf:"-"`
 
@@ -171,8 +170,17 @@ type TaskParameters struct {
 	Schedule []ScheduleParameters `json:"schedule,omitempty" tf:"schedule,omitempty"`
 
 	// Amazon Resource Name (ARN) of source DataSync Location.
-	// +kubebuilder:validation:Required
-	SourceLocationArn *string `json:"sourceLocationArn" tf:"source_location_arn,omitempty"`
+	// +crossplane:generate:reference:type=LocationS3
+	// +kubebuilder:validation:Optional
+	SourceLocationArn *string `json:"sourceLocationArn,omitempty" tf:"source_location_arn,omitempty"`
+
+	// Reference to a LocationS3 to populate sourceLocationArn.
+	// +kubebuilder:validation:Optional
+	SourceLocationArnRef *v1.Reference `json:"sourceLocationArnRef,omitempty" tf:"-"`
+
+	// Selector for a LocationS3 to populate sourceLocationArn.
+	// +kubebuilder:validation:Optional
+	SourceLocationArnSelector *v1.Selector `json:"sourceLocationArnSelector,omitempty" tf:"-"`
 
 	// Key-value map of resource tags.
 	// +kubebuilder:validation:Optional
