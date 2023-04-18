@@ -69,7 +69,7 @@ func (mg *Task) ResolveReferences(ctx context.Context, c client.Reader) error {
 
 	rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
 		CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.DestinationLocationArn),
-		Extract:      resource.ExtractParamPath("arn", true),
+		Extract:      reference.ExternalName(),
 		Reference:    mg.Spec.ForProvider.DestinationLocationArnRef,
 		Selector:     mg.Spec.ForProvider.DestinationLocationArnSelector,
 		To: reference.To{
@@ -82,6 +82,22 @@ func (mg *Task) ResolveReferences(ctx context.Context, c client.Reader) error {
 	}
 	mg.Spec.ForProvider.DestinationLocationArn = reference.ToPtrValue(rsp.ResolvedValue)
 	mg.Spec.ForProvider.DestinationLocationArnRef = rsp.ResolvedReference
+
+	rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
+		CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.SourceLocationArn),
+		Extract:      reference.ExternalName(),
+		Reference:    mg.Spec.ForProvider.SourceLocationArnRef,
+		Selector:     mg.Spec.ForProvider.SourceLocationArnSelector,
+		To: reference.To{
+			List:    &LocationS3List{},
+			Managed: &LocationS3{},
+		},
+	})
+	if err != nil {
+		return errors.Wrap(err, "mg.Spec.ForProvider.SourceLocationArn")
+	}
+	mg.Spec.ForProvider.SourceLocationArn = reference.ToPtrValue(rsp.ResolvedValue)
+	mg.Spec.ForProvider.SourceLocationArnRef = rsp.ResolvedReference
 
 	return nil
 }
