@@ -15,6 +15,7 @@ import (
 	"github.com/dkb-bank/official-provider-aws/config/datasync"
 	"github.com/dkb-bank/official-provider-aws/config/directconnect"
 	"github.com/dkb-bank/official-provider-aws/config/ec2"
+	"github.com/dkb-bank/official-provider-aws/config/ecr"
 	"github.com/dkb-bank/official-provider-aws/config/elbv2"
 	"github.com/dkb-bank/official-provider-aws/config/grafana"
 	"github.com/dkb-bank/official-provider-aws/config/iam"
@@ -118,7 +119,7 @@ func GetProvider() *config.Provider {
 		// dynamodb.Configure,
 		// ebs.Configure,
 		ec2.Configure,
-		// ecr.Configure,
+		ecr.Configure,
 		// ecrpublic.Configure,
 		// ecs.Configure,
 		// efs.Configure,

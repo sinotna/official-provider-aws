@@ -17,6 +17,7 @@ import (
 	v1beta1dms "github.com/dkb-bank/official-provider-aws/apis/dms/v1beta1"
 	v1beta1dynamodb "github.com/dkb-bank/official-provider-aws/apis/dynamodb/v1beta1"
 	v1beta1ec2 "github.com/dkb-bank/official-provider-aws/apis/ec2/v1beta1"
+	v1beta1ecr "github.com/dkb-bank/official-provider-aws/apis/ecr/v1beta1"
 	v1beta1elbv2 "github.com/dkb-bank/official-provider-aws/apis/elbv2/v1beta1"
 	v1beta1firehose "github.com/dkb-bank/official-provider-aws/apis/firehose/v1beta1"
 	v1beta1grafana "github.com/dkb-bank/official-provider-aws/apis/grafana/v1beta1"
@@ -44,6 +45,7 @@ func init() {
 		v1beta1dms.SchemeBuilder.AddToScheme,
 		v1beta1dynamodb.SchemeBuilder.AddToScheme,
 		v1beta1ec2.SchemeBuilder.AddToScheme,
+		v1beta1ecr.SchemeBuilder.AddToScheme,
 		v1beta1elbv2.SchemeBuilder.AddToScheme,
 		v1beta1firehose.SchemeBuilder.AddToScheme,
 		v1beta1grafana.SchemeBuilder.AddToScheme,
