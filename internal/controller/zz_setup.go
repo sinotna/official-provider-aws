@@ -62,6 +62,13 @@ import (
 	vpc "github.com/dkb-bank/official-provider-aws/internal/controller/ec2/vpc"
 	vpcendpoint "github.com/dkb-bank/official-provider-aws/internal/controller/ec2/vpcendpoint"
 	vpcpeeringconnection "github.com/dkb-bank/official-provider-aws/internal/controller/ec2/vpcpeeringconnection"
+	lifecyclepolicy "github.com/dkb-bank/official-provider-aws/internal/controller/ecr/lifecyclepolicy"
+	pullthroughcacherule "github.com/dkb-bank/official-provider-aws/internal/controller/ecr/pullthroughcacherule"
+	registrypolicy "github.com/dkb-bank/official-provider-aws/internal/controller/ecr/registrypolicy"
+	registryscanningconfiguration "github.com/dkb-bank/official-provider-aws/internal/controller/ecr/registryscanningconfiguration"
+	replicationconfiguration "github.com/dkb-bank/official-provider-aws/internal/controller/ecr/replicationconfiguration"
+	repository "github.com/dkb-bank/official-provider-aws/internal/controller/ecr/repository"
+	repositorypolicy "github.com/dkb-bank/official-provider-aws/internal/controller/ecr/repositorypolicy"
 	lb "github.com/dkb-bank/official-provider-aws/internal/controller/elbv2/lb"
 	lblistener "github.com/dkb-bank/official-provider-aws/internal/controller/elbv2/lblistener"
 	lblistenerrule "github.com/dkb-bank/official-provider-aws/internal/controller/elbv2/lblistenerrule"
@@ -207,6 +214,13 @@ func Setup(mgr ctrl.Manager, o controller.Options) error {
 		vpc.Setup,
 		vpcendpoint.Setup,
 		vpcpeeringconnection.Setup,
+		lifecyclepolicy.Setup,
+		pullthroughcacherule.Setup,
+		registrypolicy.Setup,
+		registryscanningconfiguration.Setup,
+		replicationconfiguration.Setup,
+		repository.Setup,
+		repositorypolicy.Setup,
 		lb.Setup,
 		lblistener.Setup,
 		lblistenerrule.Setup,
